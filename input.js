@@ -16,19 +16,18 @@ function keyToggle(keyCode,newState) {
 		case KEY_LEFT_ARROW:
 			keyHeld_MoveLeft = newState;
 			break;
-			
+
 		case KEY_UP_ARROW:
 			keyHeld_Jump = newState;
 			break;
-			
 		case KEY_RIGHT_ARROW:
 			keyHeld_MoveRight = newState;
 			break;
-			
+
 		case KEY_DOWN_ARROW:
 			keyHeld_Duck = newState;
 			break;
-			
+
 		default:
 			return false;
 	}
@@ -48,16 +47,17 @@ function calculateMousePos(evt){
 	var rect = canvas.getBoundingClientRect();
 	var root = document.documentElement;
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
-	mouseY = evt.clientY - rect.left - root.scrollTop;	
+	mouseY = evt.clientY - rect.left - root.scrollTop;
 }
 
 function handleClick() {
 	p1.throwAtMouse();
+	p1.catchBall();
 }
-	
+
 function setUpInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 	canvas.addEventListener('mousemove',calculateMousePos);
-	canvas.addEventListener('mousedown', handleClick); 
+	canvas.addEventListener('mousedown', handleClick);
 }

@@ -6,7 +6,7 @@ const FLOOR_Y = 590;
 const PLAYER_GRAVITY = 0.6;
 const LEFT_WALL_X = 33;
 const RIGHT_WALL_X = 770;
-const DIST_TO_GRAB = 10;
+const DIST_TO_GRAB = 20;
 const TIME_LIMIT_MAX = 100;
 const RECOVERY_AFTER_TIMEOUT = 50;
 
@@ -35,6 +35,15 @@ function playerClass() {
 			//Mouse position determines which direction the ball will be thrown
 			ballSpeedX = toMouseX * THROW_POWER / distToMouse;
 			ballSpeedY = toMouseY * THROW_POWER / distToMouse;
+		}
+	}
+
+	this.catchBall= function() {
+		if(!this.ballHeld && this.recentlyThrownFrameLock == 0) {
+			var distToMouse = dist(this.x, this.y, mouseX, mouseY);
+			if (distToMouse <= DIST_TO_GRAB) {
+				this.ballHeld = true;
+			}
 		}
 	}
 
@@ -78,7 +87,7 @@ function playerClass() {
 		//Allows player to fall in a arc
 		this.x += this.speedX;
 		this.y += this.speedY;
-		
+
 		if(this.ballHeld) {
 			ballX = this.x;
 			ballY = this.y-player1.height/2;
