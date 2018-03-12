@@ -7,7 +7,7 @@ const PLAYER_GRAVITY = 0.6;
 const LEFT_WALL_X = 33;
 const RIGHT_WALL_X = 770;
 const DIST_TO_GRAB = 20;
-const TIME_LIMIT_MAX = 100;
+const TIME_LIMIT_MAX = 170;
 const RECOVERY_AFTER_TIMEOUT = 50;
 
 function playerClass() {
@@ -19,6 +19,7 @@ function playerClass() {
 	this.isOnGround = false;
 	this.timeLimit = TIME_LIMIT_MAX;
 
+	this.ballForfeit = false;
 	this.ballHeld = false;
 	this.recentlyThrownFrameLock = 0;
 
@@ -97,10 +98,29 @@ function playerClass() {
 		}
 		if(this.timeLimit <= 0) {
 			this.timeLimit--;
-			if(this.timeLimit < -RECOVERY_AFTER_TIMEOUT){
-				this.timeLimit = TIME_LIMIT_MAX;
+			if(this.timeLimit < -RECOVERY_AFTER_TIMEOUT){ //Resets the timeLimit to hold the ball when it expires
+				this.timeLimit = TIME_LIMIT_MAX;  
 			}
 			this.ballHeld = false;
+			this.ballForfeit = true;
+		}
+		//Both players will forfeit the ball to one another if they hold the ball for too long without throwing it
+		if(p1.ballForfeit == true) {
+			p1.ballForfeit = false;
+			p2.ballHeld = true;
+			ballX = p2.x;
+			ballY = p2.y-player1.height/2;
+			ballSpeedX = 0;
+			ballSpeedY = 0;
+			this.timeLimit--;
+		} else if(p2.ballForfeit == true) {
+			p2.ballForfeit = false;
+			p1.ballHeld = true;
+			ballX = p1.x;
+			ballY = p1.y-player1.height/2;
+			ballSpeedX = 0;
+			ballSpeedY = 0;
+			this.timeLimit--;
 		}
 		//keeps player from immediately picking up the ball after being thrown
 		if(this.recentlyThrownFrameLock >= 0) {
