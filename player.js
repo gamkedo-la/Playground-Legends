@@ -4,8 +4,9 @@ const THROW_POWER = 30;
 const PLAYER_MOMENTUM = 0.20;
 const FLOOR_Y = 590;
 const PLAYER_GRAVITY = 0.6;
-const LEFT_WALL_X = 33;
-const RIGHT_WALL_X = 770;
+const LEFT_WALL_X = 20;
+const MID_POINT = 385;
+const RIGHT_WALL_X = 780;
 const DIST_TO_GRAB = 20;
 const TIME_LIMIT_MAX = 170;
 const RECOVERY_AFTER_TIMEOUT = 50;
@@ -69,12 +70,18 @@ function playerClass() {
 				this.speedY = -PLAYER_JUMP_SPEED;
 			}
 		}
-		//Enforce wall collisions
-		if(this.x < LEFT_WALL_X) {
-			this.x = LEFT_WALL_X;
+		//Enforce wall collisions and mid-point collisions
+		if(p1.x < LEFT_WALL_X) {
+			p1.x = LEFT_WALL_X;
 		}
-		if(this.x > RIGHT_WALL_X) {
-			this.x = RIGHT_WALL_X;
+		if(p1.x > MID_POINT) {
+			p1.x = MID_POINT;
+		}
+		if(p2.x > RIGHT_WALL_X) {
+			p2.x = RIGHT_WALL_X;
+		}
+		if(p2.x < MID_POINT) {
+			p2.x = MID_POINT;
 		}
 		//if above ground gravity will bring the player back down
 		if(this.y < FLOOR_Y) {
