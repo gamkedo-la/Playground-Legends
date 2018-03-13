@@ -60,16 +60,28 @@ function playerClass() {
 			}
 		}
 		else {
-			if(keyHeld_MoveLeft) {
+			if(keyHeld_MoveLeft && !this.isAI) {
 				this.speedX = -PLAYER_MOVE_SPEED;
 			}
-			if(keyHeld_MoveRight) {
+			if(keyHeld_MoveRight && !this.isAI) {
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
-			if(keyHeld_Jump && this.isOnGround) {
+			if(keyHeld_Jump && this.isOnGround && !this.isAI) {
 				this.speedY = -PLAYER_JUMP_SPEED;
 			}
 		}
+
+		//AI player moves towards ball if it  is on their side and not moving very much
+		if(this.isAI && !this.ballHeld 
+			&& ballX > MID_POINT && ballY == FLOOR_Y
+			&& ballSpeedX < 3 && ballSpeedY < 3) {
+			if (this.x > ballX) {
+				this.speedX = -PLAYER_MOVE_SPEED;
+			} else {
+				this.speedX = PLAYER_MOVE_SPEED;
+			}
+		}
+
 		//Enforce wall collisions and mid-point collisions
 		if(p1.x < LEFT_WALL_X) {
 			p1.x = LEFT_WALL_X;
@@ -130,15 +142,6 @@ function playerClass() {
 			this.timeLimit--;
 		}
 
-		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT && ballY == FLOOR_Y
-			&& ballSpeedX < 3 && ballSpeedY < 3) {
-			if (p2.x > ballX) {
-				p2.x -= PLAYER_MOVE_SPEED;
-			} else {
-				p2.x += PLAYER_MOVE_SPEED;
-			}
-		}
 		//keeps player from immediately picking up the ball after being thrown
 		if(this.recentlyThrownFrameLock >= 0) {
 			this.recentlyThrownFrameLock--;
