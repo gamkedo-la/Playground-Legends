@@ -5,5 +5,5 @@ function setUpImages() {
 	player1.onload = function() {
 		player1Loaded = true;	
 	}
-	player1.src = "player1.png";
+	player1.src = "images/player1.png";
 }
