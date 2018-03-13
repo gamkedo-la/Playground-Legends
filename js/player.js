@@ -51,7 +51,7 @@ function playerClass() {
 
 	this.move=function() {
 		this.speedX *= PLAYER_MOMENTUM;
-		if(this.isAI){
+		if(this.isAI && ballY < FLOOR_Y - 2){
 			if(Math.random() < 0.03){
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
@@ -128,6 +128,16 @@ function playerClass() {
 			ballSpeedX = 0;
 			ballSpeedY = 0;
 			this.timeLimit--;
+		}
+
+		if(this.isAI && !this.ballHeld 
+			&& ballX > MID_POINT && ballY == FLOOR_Y
+			&& ballSpeedX < 3 && ballSpeedY < 3) {
+			if (p2.x > ballX) {
+				p2.x -= PLAYER_MOVE_SPEED;
+			} else {
+				p2.x += PLAYER_MOVE_SPEED;
+			}
 		}
 		//keeps player from immediately picking up the ball after being thrown
 		if(this.recentlyThrownFrameLock >= 0) {
