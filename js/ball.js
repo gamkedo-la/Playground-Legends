@@ -49,3 +49,13 @@ function moveBall() {
 			ballSpeedY = -ballSpeedY;
 		}
 	}
+	
+function ballCollisionWithPlayers(whichPlayer) {
+	  var diffX = Math.abs(ballX - whichPlayer.x);
+	  var diffY = Math.abs(ballY - whichPlayer.y);
+	  var closeEnough = 50; // measured in pixels
+		if(diffX < closeEnough && diffY < closeEnough) {
+		   ballSpeedX = -ballSpeedX;
+		   ballSpeedY = -ballSpeedY;
+	   }
+}

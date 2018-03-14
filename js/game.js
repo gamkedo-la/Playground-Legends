@@ -51,6 +51,8 @@ function animate(timestamp) {
 	p2.move();
 	moveBall();
 	drawAll();
+	ballCollisionWithPlayers(p1);
+	ballCollisionWithPlayers(p2);
 	requestAnimationFrame(animate);
 }
 
