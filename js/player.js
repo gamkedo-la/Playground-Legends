@@ -7,6 +7,7 @@ const PLAYER_MOMENTUM = 0.20; // friction/drag
 const FLOOR_Y = 520;
 const LEFT_WALL_X = 20;
 const MID_POINT = 385;
+const NET = 30;
 const RIGHT_WALL_X = 780;
 const DIST_TO_GRAB = 20;
 const TIME_LIMIT_MAX = 170;
@@ -79,9 +80,9 @@ function playerClass() {
 			}
 		}
 
-		//AI player moves towards ball if it  is on their side and not moving very much
+		//AI player moves towards ball if it is on their side and not moving very much
 		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT && ballY == FLOOR_Y
+			&& ballX > MID_POINT + NET && ballY == FLOOR_Y
 			&& ballSpeedX < 3 && ballSpeedY < 3) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
@@ -92,7 +93,7 @@ function playerClass() {
 
 		//AI player tries to catch the ball if the ball is thrown on its side
 		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT && ballY < FLOOR_Y) {
+			&& ballX > MID_POINT + NET && ballY < FLOOR_Y) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
 			} else {
