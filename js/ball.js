@@ -11,9 +11,13 @@ var ballSpeedY = 0;
 
 function drawBall() {
 
-	if (!ballImageLoaded) return;
+	if (shadowImageLoaded) {
+		canvasContext.drawImage(shadowImage, ballX-BALL_RADIUS, FLOOR_Y+10);
+	}
 
-	canvasContext.drawImage(ballImage, ballX-BALL_RADIUS, ballY-BALL_RADIUS);
+	if (ballImageLoaded) {
+		canvasContext.drawImage(ballImage, ballX-BALL_RADIUS, ballY-BALL_RADIUS);
+	}
 
 }
 
