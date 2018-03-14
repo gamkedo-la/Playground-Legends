@@ -1,7 +1,7 @@
 const BALL_RADIUS = 9;
 const BALL_BOUNCE = -0.5;
 const BALL_MOMENTUM = 0.50;
-const BALL_GRAVITY = 0.4;
+const BALL_GRAVITY = 0.8;
 
 var ballX = 100;
 var ballY = FLOOR_Y;

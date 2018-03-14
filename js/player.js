@@ -82,6 +82,16 @@ function playerClass() {
 			}
 		}
 
+		//AI player tries to catch the ball if the ball is thrown on its side
+		if(this.isAI && !this.ballHeld 
+			&& ballX > MID_POINT && ballY < FLOOR_Y) {
+			if (this.x > ballX) {
+				this.speedX = -PLAYER_MOVE_SPEED;
+			} else {
+				this.speedX = PLAYER_MOVE_SPEED;
+			}
+		}
+
 		//Enforce wall collisions and mid-point collisions
 		if(p1.x < LEFT_WALL_X) {
 			p1.x = LEFT_WALL_X;
