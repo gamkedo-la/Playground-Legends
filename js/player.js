@@ -1,9 +1,10 @@
-const PLAYER_MOVE_SPEED = 7;
-const PLAYER_JUMP_SPEED = 6;
-const THROW_POWER = 30;
-const PLAYER_MOMENTUM = 0.20;
+const PLAYER_MOVE_SPEED = 400; // pixels per second
+const PLAYER_JUMP_SPEED = 300; // pixels per second
+const THROW_POWER = 600;  // pixels per second
+const PLAYER_GRAVITY = 800; // pixels per second
+
+const PLAYER_MOMENTUM = 0.20; // friction/drag
 const FLOOR_Y = 520;
-const PLAYER_GRAVITY = 0.6;
 const LEFT_WALL_X = 20;
 const MID_POINT = 385;
 const RIGHT_WALL_X = 780;
@@ -108,15 +109,17 @@ function playerClass() {
 		//if above ground gravity will bring the player back down
 		if(this.y < FLOOR_Y) {
 			this.isOnGround = false;
-			this.speedY += PLAYER_GRAVITY;
+			this.speedY += (PLAYER_GRAVITY * secondsSinceLastFrame);
 		}
 		else {
 			this.isOnGround = true;
 			this.y = FLOOR_Y;
 		}
+		
 		//Allows player to fall in a arc
-		this.x += this.speedX;
-		this.y += this.speedY;
+		//at same speed regardless of framerate
+		this.x += (this.speedX * secondsSinceLastFrame);
+		this.y += (this.speedY * secondsSinceLastFrame);
 
 		if(this.ballHeld) {
 			ballX = this.x;

@@ -1,13 +1,13 @@
-const BALL_RADIUS = 20;
-const BALL_BOUNCE = -0.5;
-const BALL_MOMENTUM = 0.50;
-const BALL_GRAVITY = 0.8;
+const BALL_RADIUS = 20; // must match sprite size
+const BALL_BOUNCE = -0.5; // collision restitution
+const BALL_MOMENTUM = 0.8; // air friction/drag
+const BALL_GRAVITY = 800; // pixels per second
+
+var ballSpeedX = 0; // pixels per second
+var ballSpeedY = 0; // pixels per second
 
 var ballX = 100;
 var ballY = FLOOR_Y;
-
-var ballSpeedX = 0;
-var ballSpeedY = 0;
 
 function drawBall() {
 
@@ -23,11 +23,15 @@ function drawBall() {
 
 function moveBall() {
 		
+		//console.log('moveball pos:'+ballX+','+ballY+' spd:'+ballSpeedX+','+ballSpeedY+' dt:'+secondsSinceLastFrame);
+	
 		//Allows the ball to move anywhere on screen and at a constant speed
-		ballX = ballX + ballSpeedX;
-		ballY = ballY + ballSpeedY;
+		//regardless of framerate
+		ballX = ballX + (ballSpeedX * secondsSinceLastFrame);
+		ballY = ballY + (ballSpeedY * secondsSinceLastFrame);
+
 		if(ballY < FLOOR_Y) {
-			ballSpeedY += BALL_GRAVITY;
+			ballSpeedY += (BALL_GRAVITY * secondsSinceLastFrame);
 		}
 		else {
 			ballY = FLOOR_Y;
