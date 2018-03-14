@@ -59,3 +59,21 @@ function ballCollisionWithPlayers(whichPlayer) {
 		   ballSpeedY = -ballSpeedY;
 	   }
 }
+
+function clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val))
+}
+
+// UNTESTED - FIXME - TODO
+// the box must be an AABB (axis-aligned bounding box)
+function circleIsTouchingBox(circleX,circleY,circleRadius,boxX,boxY,boxW,boxH) {
+	// closest point to the circle inside the box
+	var closestX = clamp(circleX, boxX, boxX + boxW);
+	var closestY = clamp(circleY, boxY, boxY + boxH);
+	// measure distance
+	var distanceX = circleX - closestX;
+	var distanceY = circleY - closestY;
+	// is closest point on box close enough to intersect circle?
+	var distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+	return distanceSquared < (circleRadius * circleRadius);
+}
