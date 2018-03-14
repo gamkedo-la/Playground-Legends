@@ -1,4 +1,4 @@
-const BALL_RADIUS = 9;
+const BALL_RADIUS = 20;
 const BALL_BOUNCE = -0.5;
 const BALL_MOMENTUM = 0.50;
 const BALL_GRAVITY = 0.8;
@@ -8,6 +8,14 @@ var ballY = FLOOR_Y;
 
 var ballSpeedX = 0;
 var ballSpeedY = 0;
+
+function drawBall() {
+
+	if (!ballImageLoaded) return;
+
+	canvasContext.drawImage(ballImage, ballX-BALL_RADIUS, ballY-BALL_RADIUS);
+
+}
 
 function moveBall() {
 		
