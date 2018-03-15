@@ -36,16 +36,16 @@ function playerClass() {
 			canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
 		}
 	}
-	this.throwAtMouse= function() {
+	this.throwAtPos= function(x,y) {
 		if(this.ballHeld){
 			this.ballHeld = false;
 			this.recentlyThrownFrameLock = 4;
 			var distToMouse = dist(this.x,this.y, mouseX,mouseY);
-			var toMouseX = mouseX - this.x;
-			var toMouseY = mouseY - this.y;
+			var posX = x - this.x;
+			var posY = y - this.y;
 			//Mouse position determines which direction the ball will be thrown
-			ballSpeedX = toMouseX * THROW_POWER / distToMouse;
-			ballSpeedY = toMouseY * THROW_POWER / distToMouse;
+			ballSpeedX = posX * THROW_POWER / distToMouse;
+			ballSpeedY = posY * THROW_POWER / distToMouse;
 		}
 	}
 
@@ -142,6 +142,10 @@ function playerClass() {
 			ballSpeedX = 0;
 			ballSpeedY = 0;
 			this.timeLimit--;
+		}
+		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
+					this.throwAtPos(MID_POINT,100) 
+				
 		}
 		if(this.timeLimit <= 0) {
 			this.timeLimit--;
