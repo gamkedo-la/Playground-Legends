@@ -1,11 +1,13 @@
-const PLAYER_MOVE_SPEED = 7;
-const PLAYER_JUMP_SPEED = 6;
-const THROW_POWER = 30;
-const PLAYER_MOMENTUM = 0.20;
+const PLAYER_MOVE_SPEED = 400; // pixels per second
+const PLAYER_JUMP_SPEED = 300; // pixels per second
+const THROW_POWER = 600;  // pixels per second
+const PLAYER_GRAVITY = 800; // pixels per second
+
+const PLAYER_MOMENTUM = 0.20; // friction/drag
 const FLOOR_Y = 520;
-const PLAYER_GRAVITY = 0.6;
 const LEFT_WALL_X = 20;
 const MID_POINT = 385;
+const NET = 30;
 const RIGHT_WALL_X = 780;
 const DIST_TO_GRAB = 20;
 const TIME_LIMIT_MAX = 170;
@@ -25,7 +27,14 @@ function playerClass() {
 	this.recentlyThrownFrameLock = 0;
 
 	this.draw= function() {
-		canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
+		if (this.isAI) {
+			canvasContext.translate(this.x,this.y);
+			canvasContext.scale(-1,1);
+			canvasContext.drawImage(player1, 0-player1.width/2, 0-player1.height);
+			canvasContext.setTransform(1,0,0,1,0,0);
+		} else {
+			canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
+		}
 	}
 	this.throwAtMouse= function() {
 		if(this.ballHeld){
@@ -71,9 +80,9 @@ function playerClass() {
 			}
 		}
 
-		//AI player moves towards ball if it  is on their side and not moving very much
+		//AI player moves towards ball if it is on their side and not moving very much
 		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT && ballY == FLOOR_Y
+			&& ballX > MID_POINT + NET && ballY == FLOOR_Y
 			&& ballSpeedX < 3 && ballSpeedY < 3) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
@@ -83,12 +92,19 @@ function playerClass() {
 		}
 
 		//AI player tries to catch the ball if the ball is thrown on its side
+		//also if player speed is more than the ball speed, it tries to match the speed of the ball
 		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT && ballY < FLOOR_Y) {
+			&& ballX > MID_POINT + NET && ballY < FLOOR_Y) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
+				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+					this.speedX = -ballSpeedX;
+				}
 			} else {
 				this.speedX = PLAYER_MOVE_SPEED;
+				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+					this.speedX = ballSpeedX;
+				}
 			}
 		}
 
@@ -108,15 +124,17 @@ function playerClass() {
 		//if above ground gravity will bring the player back down
 		if(this.y < FLOOR_Y) {
 			this.isOnGround = false;
-			this.speedY += PLAYER_GRAVITY;
+			this.speedY += (PLAYER_GRAVITY * secondsSinceLastFrame);
 		}
 		else {
 			this.isOnGround = true;
 			this.y = FLOOR_Y;
 		}
+		
 		//Allows player to fall in a arc
-		this.x += this.speedX;
-		this.y += this.speedY;
+		//at same speed regardless of framerate
+		this.x += (this.speedX * secondsSinceLastFrame);
+		this.y += (this.speedY * secondsSinceLastFrame);
 
 		if(this.ballHeld) {
 			ballX = this.x;
