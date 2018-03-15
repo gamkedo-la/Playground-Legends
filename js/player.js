@@ -9,7 +9,7 @@ const LEFT_WALL_X = 20;
 const MID_POINT = 385;
 const NET = 30;
 const RIGHT_WALL_X = 780;
-const DIST_TO_GRAB = 20;
+const DIST_TO_GRAB = 47;
 const TIME_LIMIT_MAX = 170;
 const RECOVERY_AFTER_TIMEOUT = 50;
 
