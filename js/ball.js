@@ -40,6 +40,7 @@ function moveBall() {
 		}
 		
 		//This will keep the ball within the frame of the canvas horizontally
+		//also avaoid getting stuck in the corner
 		if((ballX < 0 && ballSpeedX < 0.0 ) || (ballX > canvas.width && ballSpeedX > 0.0 )){
 			ballSpeedX = -ballSpeedX;
 		}		
