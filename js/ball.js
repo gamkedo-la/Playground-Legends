@@ -40,9 +40,9 @@ function moveBall() {
 		}
 		
 		//This will keep the ball within the frame of the canvas horizontally
-		if(ballX > canvas.width || ballX < 0){
+		if((ballX < 0 && ballSpeedX < 0.0 ) || (ballX > canvas.width && ballSpeedX > 0.0 )){
 			ballSpeedX = -ballSpeedX;
-		}
+		}		
 		
 		//This will keep the ball within the frame of the canvas vertically
 		if(ballY > FLOOR_Y || ballY < 0){

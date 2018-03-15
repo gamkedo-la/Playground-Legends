@@ -92,12 +92,19 @@ function playerClass() {
 		}
 
 		//AI player tries to catch the ball if the ball is thrown on its side
+		//also if player speed is more than the ball speed, it tries to match the speed of the ball
 		if(this.isAI && !this.ballHeld 
 			&& ballX > MID_POINT + NET && ballY < FLOOR_Y) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
+				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+					this.speedX = -ballSpeedX;
+				}
 			} else {
 				this.speedX = PLAYER_MOVE_SPEED;
+				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+					this.speedX = ballSpeedX;
+				}
 			}
 		}
 
