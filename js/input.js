@@ -2,6 +2,8 @@ const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
+const KEY_A = 65;
+const KEY_D = 68;
 
 var keyHeld_MoveLeft = false;
 var keyHeld_Jump = false;
@@ -14,6 +16,7 @@ var mouseY = 0;
 function keyToggle(keyCode,newState) {
 	switch(keyCode) {
 		case KEY_LEFT_ARROW:
+		case KEY_A:
 			keyHeld_MoveLeft = newState;
 			break;
 
@@ -21,6 +24,7 @@ function keyToggle(keyCode,newState) {
 			keyHeld_Jump = newState;
 			break;
 		case KEY_RIGHT_ARROW:
+		case KEY_D:
 			keyHeld_MoveRight = newState;
 			break;
 
