@@ -1,26 +1,6 @@
 var audioFormat;
 
-var regularShotSound = new SoundOverlapsClass("./audio/RegularShot");
-var waveShotSound = new SoundOverlapsClass("./audio/WaveShot");
-var LaserShotSound = new SoundOverlapsClass("./audio/LaserCannon");
-
-var enemyLaserChargingSound = new SoundOverlapsClass("./audio/EnemyLaserCharging");
-var enemyLaserFiringSound = new SoundOverlapsClass("./audio/EnemyLaserFiring");
-
-var shieldPowerUpSound = new SoundOverlapsClass("./audio/ShieldPowerUp");
-var pauseSound = new SoundOverlapsClass("./audio/PauseSound");
-var resumeSound = new SoundOverlapsClass("./audio/ResumeSound");
-var explosionSound = new SoundOverlapsClass("./audio/LoudExplosion");
-var smartBombSound = new SoundOverlapsClass("./audio/SmartBombSound");
-var zebesBackgroundMusic = "./audio/dew-drops";
-var computerBackgroundMusic = "./audio/suspain";
-var menuMusic = "./audio/beeblebrox";
-
-//game over music
-var gameOverMusic = "./audio/GameOverMusic";
-var gameOverCompMusic = "./audio/GameOverCompLvlMusic";
-var gameOverCrystallineCoastMusic = "./audio/GameOverCrystallineCoastLvl";
-var gameOverFantasyMusic = "./audio/GameOverFantasyTheme";
+var hitByBallSound = new SoundOverlapsClass("./audio/HitByBall");
 
 var currentBackgroundMusic = new backgroundMusicClass();
 
