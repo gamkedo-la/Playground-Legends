@@ -4,6 +4,7 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 const KEY_A = 65;
 const KEY_D = 68;
+const KEY_W = 87;
 
 var keyHeld_MoveLeft = false;
 var keyHeld_Jump = false;
@@ -19,7 +20,9 @@ function keyToggle(keyCode,newState) {
 		case KEY_A:
 			keyHeld_MoveLeft = newState;
 			break;
-
+        case KEY_W:
+            keyHeld_Jump = newState;
+            break;
 		case KEY_UP_ARROW:
 			keyHeld_Jump = newState;
 			break;
