@@ -39,7 +39,7 @@ function playerClass() {
 	this.throwAtPos= function(x,y) {
 		if(this.ballHeld){
 			this.ballHeld = false;
-			this.recentlyThrownFrameLock = 4;
+			this.recentlyThrownFrameLock = 2;
 			var distToMouse = dist(this.x,this.y, mouseX,mouseY);
 			var posX = x - this.x;
 			var posY = y - this.y;
