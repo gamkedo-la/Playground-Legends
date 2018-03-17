@@ -147,7 +147,7 @@ function playerClass() {
 			this.timeLimit = TIME_LIMIT_MAX;
 		}
 		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
-					this.throwAtPos(MID_POINT,100) 
+					this.throwAtPos(p1.x,p1.y) 
 				
 		}
 		if(this.timeLimit <= 0) {
