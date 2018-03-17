@@ -8,6 +8,8 @@ var ballSpeedY = 0; // pixels per second
 
 var ballX = 100;
 var ballY = FLOOR_Y;
+var ballTouchedFloor;
+var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
 
 //var ballBounced = false;
 
@@ -55,12 +57,13 @@ function moveBall() {
 		//This will keep the ball within the frame of the canvas horizontally
 		//also avoid getting stuck in the corner
 		if((ballX < 0 && ballSpeedX < 0.0 ) || (ballX > canvas.width && ballSpeedX > 0.0 )){
-			ballSpeedX = -ballSpeedX;
-            
+			ballOutOfBoundary = true;
+			ballSpeedX = -ballSpeedX;            
 		}		
 		
 		//This will keep the ball within the frame of the canvas vertically
 		if(ballY > FLOOR_Y || ballY < 0){
+			ballTouchedFloor = true;
 			ballSpeedY = -ballSpeedY;
 		}
 	}
@@ -69,7 +72,8 @@ function ballCollisionWithPlayers(whichPlayer) {
 	  var diffX = Math.abs(ballX - whichPlayer.x);
 	  var diffY = Math.abs(ballY - whichPlayer.y);
 	  var closeEnough = 50; // measured in pixels
-		if(diffX < closeEnough && diffY < closeEnough) {
+		if(diffX < closeEnough && diffY < closeEnough 
+			&& ballTouchedFloor == false && ballOutOfBoundary == false) {
 		   ballSpeedX = -ballSpeedX;
 		   ballSpeedY = -ballSpeedY;
 	   }

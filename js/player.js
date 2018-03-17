@@ -93,8 +93,9 @@ function playerClass() {
 
 		//AI player tries to catch the ball if the ball is thrown on its side
 		//also if player speed is more than the ball speed, it tries to match the speed of the ball
+		//after ball is thrown back, it does not follow the ball
 		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT + NET && ballY < FLOOR_Y) {
+			&& ballX > MID_POINT + NET && ballY < FLOOR_Y && ballSpeedX>0.0) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
 				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
@@ -146,10 +147,28 @@ function playerClass() {
 		else {
 			this.timeLimit = TIME_LIMIT_MAX;
 		}
+		
+		//AI throwing the ball and tries to throw it in position where player1 is not present
 		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
-					this.throwAtPos(p1.x,p1.y) 
-				
+			var velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
+			var angle = (Math.random()*(Math.PI/2))+0.1;
+			var xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)			
+			var xLandedBallPos = p2.x - xDisOfTrajectory;
+			// console.log(xDisOfTrajectory);
+			// console.log(p1.x);
+			// console.log(xLandedBallPos);
+			while(!(xLandedBallPos != p1.x && (MID_POINT > xLandedBallPos) && (xLandedBallPos > 0))){
+				velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
+				angle = (Math.random()*(Math.PI/2))+0.1;
+				xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)			
+				xLandedBallPos = p2.x - xDisOfTrajectory;
+			}
+			this.ballHeld = false;
+			this.recentlyThrownFrameLock = 2;
+			ballSpeedX = -velocity*Math.cos(angle);
+			ballSpeedY = -velocity*Math.sin(angle);				
 		}
+
 		if(this.timeLimit <= 0) {
 			this.timeLimit--;
 			if(this.timeLimit < -RECOVERY_AFTER_TIMEOUT){ //Resets the timeLimit to hold the ball when it expires
@@ -184,6 +203,8 @@ function playerClass() {
 		//Player will pick up the ball when they are within the DIST_TO_GRAB range
 		else if(dist(this.x,this.y, ballX,ballY) < DIST_TO_GRAB && this.timeLimit > 0) {
 			this.ballHeld = true;
+			ballTouchedFloor = false;
+			ballOutOfBoundary= false;
 		}
 	}
 }
