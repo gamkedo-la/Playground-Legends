@@ -9,7 +9,7 @@ var ballSpeedY = 0; // pixels per second
 var ballX = 100;
 var ballY = FLOOR_Y;
 
-var ballBounced = false;
+//var ballBounced = false;
 
 function drawBall() {
 
@@ -38,17 +38,17 @@ function moveBall() {
             ballY = FLOOR_Y;
             ballSpeedX *= BALL_MOMENTUM;
             ballSpeedY *= BALL_BOUNCE;
-            ballGroundHandling();
+            //ballGroundHandling();
 		}
     
-        function ballGroundHandling() {
-                  if((ballY == FLOOR_Y && ballSpeedY !== 0)&& ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
+    /*    function ballGroundHandling() {
+                  if(ballSpeedY !== 0 && ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
                       ballBounced = true;
                       //hitByBallSound.play(); 
                 } else {
                 ballBounced = false;
             }
-        }
+        }*/
     
     
     
