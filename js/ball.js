@@ -9,6 +9,8 @@ var ballSpeedY = 0; // pixels per second
 var ballX = 100;
 var ballY = FLOOR_Y;
 
+var ballBounced = false;
+
 function drawBall() {
 
 	if (shadowImageLoaded) {
@@ -22,27 +24,39 @@ function drawBall() {
 }
 
 function moveBall() {
-		
+    
 		//console.log('moveball pos:'+ballX+','+ballY+' spd:'+ballSpeedX+','+ballSpeedY+' dt:'+secondsSinceLastFrame);
 	
 		//Allows the ball to move anywhere on screen and at a constant speed
 		//regardless of framerate
 		ballX = ballX + (ballSpeedX * secondsSinceLastFrame);
 		ballY = ballY + (ballSpeedY * secondsSinceLastFrame);
-
 		if(ballY < FLOOR_Y) {
 			ballSpeedY += (BALL_GRAVITY * secondsSinceLastFrame);
 		}
 		else {
-			ballY = FLOOR_Y;
-			ballSpeedX *= BALL_MOMENTUM;
-			ballSpeedY *= BALL_BOUNCE;
+            ballY = FLOOR_Y;
+            ballSpeedX *= BALL_MOMENTUM;
+            ballSpeedY *= BALL_BOUNCE;
+            ballGroundHandling();
 		}
-		
+    
+        function ballGroundHandling() {
+                  if((ballY == FLOOR_Y && ballSpeedY !== 0)&& ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
+                      ballBounced = true;
+                      //hitByBallSound.play(); 
+                } else {
+                ballBounced = false;
+            }
+        }
+    
+    
+    
 		//This will keep the ball within the frame of the canvas horizontally
 		//also avoid getting stuck in the corner
 		if((ballX < 0 && ballSpeedX < 0.0 ) || (ballX > canvas.width && ballSpeedX > 0.0 )){
 			ballSpeedX = -ballSpeedX;
+            
 		}		
 		
 		//This will keep the ball within the frame of the canvas vertically
