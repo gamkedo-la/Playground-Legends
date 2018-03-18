@@ -131,6 +131,13 @@ function playerClass() {
 			this.isOnGround = true;
 			this.y = FLOOR_Y;
 		}
+
+		// TODO: Quick hack to stop player from falling some pixels beneath FLOOR_Y after jumping;
+		// to be replaced…
+		if (p1.y > FLOOR_Y)
+			p1.y = FLOOR_Y;
+		if (p2.y > FLOOR_Y)
+			p2.y = FLOOR_Y;
 		
 		//Allows player to fall in a arc
 		//at same speed regardless of framerate
