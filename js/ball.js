@@ -49,7 +49,7 @@ function moveBall() {
     /*    function ballGroundHandling() {
                   if(ballSpeedY !== 0 && ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
                       ballBounced = true;
-                      //hitByBallSound.play(); 
+                      //hitByBallSound.play();
                 } else {
                 ballBounced = false;
             }
@@ -62,6 +62,13 @@ function moveBall() {
 	if ((ballX < 0 && ballSpeedX < 0.0) || (ballX > canvas.width && ballSpeedX > 0.0)) {
 		ballOutOfBoundary = true;
 		ballSpeedX = -ballSpeedX;
+	}
+
+	if (p1.ballHeld || p2.ballHeld) {
+		ballTouchedFloor = false;
+	}
+	if (ballY > FLOOR_Y - 21) {
+		ballTouchedFloor = true;
 	}
 
 	//This will keep the ball within the frame of the canvas vertically

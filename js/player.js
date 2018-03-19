@@ -59,6 +59,7 @@ function playerClass() {
 	}
 
 	this.move=function() {
+		//console.log(ballTouchedFloor);
 		this.speedX *= PLAYER_MOMENTUM;
 		if(this.isAI && ballY < FLOOR_Y - 2){
 			if(Math.random() < 0.03){
@@ -81,9 +82,9 @@ function playerClass() {
 		}
 
 		//AI player moves towards ball if it is on their side and not moving very much
-		if(this.isAI && !this.ballHeld 
+		if(this.isAI && !this.ballHeld
 			&& ballX > MID_POINT + NET && ballY == FLOOR_Y
-			&& ballSpeedX < 3 && ballSpeedY < 3) {
+			&& ballSpeedX < 10 && ballSpeedY < 10) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
 			} else {
@@ -91,23 +92,23 @@ function playerClass() {
 			}
 		}
 
-		//AI player tries to catch the ball if the ball is thrown on its side
-		//also if player speed is more than the ball speed, it tries to match the speed of the ball
-		//after ball is thrown back, it does not follow the ball
-		if(this.isAI && !this.ballHeld 
-			&& ballX > MID_POINT + NET && ballY < FLOOR_Y && ballSpeedX>0.0) {
-			if (this.x > ballX) {
-				this.speedX = -PLAYER_MOVE_SPEED;
-				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
-					this.speedX = -ballSpeedX;
-				}
-			} else {
-				this.speedX = PLAYER_MOVE_SPEED;
-				if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
-					this.speedX = ballSpeedX;
-				}
-			}
-		}
+		// AI player tries to catch the ball if the ball is thrown on its side
+		// also if player speed is more than the ball speed, it tries to match the speed of the ball
+		// after ball is thrown back, it does not follow the ball
+		// if(this.isAI && !this.ballHeld
+		// 	&& ballX > MID_POINT + NET && ballY < FLOOR_Y && ballSpeedX>0.0) {
+		// 	if (this.x > ballX) {
+		// 		this.speedX = -PLAYER_MOVE_SPEED;
+		// 		if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+		// 			this.speedX = -ballSpeedX;
+		// 		}
+		// 	} else {
+		// 		this.speedX = PLAYER_MOVE_SPEED;
+		// 		if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
+		// 			this.speedX = ballSpeedX;
+		// 		}
+		// 	}
+		// }
 
 		//Enforce wall collisions and mid-point collisions
 		if(p1.x < LEFT_WALL_X) {
@@ -138,7 +139,7 @@ function playerClass() {
 			p1.y = FLOOR_Y;
 		if (p2.y > FLOOR_Y)
 			p2.y = FLOOR_Y;
-		
+
 		//Allows player to fall in a arc
 		//at same speed regardless of framerate
 		this.x += (this.speedX * secondsSinceLastFrame);
@@ -154,12 +155,12 @@ function playerClass() {
 		else {
 			this.timeLimit = TIME_LIMIT_MAX;
 		}
-		
+
 		//AI throwing the ball and tries to throw it in position where player1 is not present
 		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
 			var velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
 			var angle = (Math.random()*(Math.PI/2))+0.1;
-			var xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)			
+			var xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)
 			var xLandedBallPos = p2.x - xDisOfTrajectory;
 			// console.log(xDisOfTrajectory);
 			// console.log(p1.x);
@@ -167,19 +168,19 @@ function playerClass() {
 			while(!(xLandedBallPos != p1.x && (MID_POINT > xLandedBallPos) && (xLandedBallPos > 0))){
 				velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
 				angle = (Math.random()*(Math.PI/2))+0.1;
-				xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)			
+				xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)
 				xLandedBallPos = p2.x - xDisOfTrajectory;
 			}
 			this.ballHeld = false;
 			this.recentlyThrownFrameLock = 2;
 			ballSpeedX = -velocity*Math.cos(angle);
-			ballSpeedY = -velocity*Math.sin(angle);				
+			ballSpeedY = -velocity*Math.sin(angle);
 		}
 
 		if(this.timeLimit <= 0) {
 			this.timeLimit--;
 			if(this.timeLimit < -RECOVERY_AFTER_TIMEOUT){ //Resets the timeLimit to hold the ball when it expires
-				this.timeLimit = TIME_LIMIT_MAX;  
+				this.timeLimit = TIME_LIMIT_MAX;
 			}
 			this.ballHeld = false;
 			this.ballForfeit = true;
@@ -212,6 +213,39 @@ function playerClass() {
 			this.ballHeld = true;
 			ballTouchedFloor = false;
 			ballOutOfBoundary= false;
+		}
+
+		//if p1 holds the ball AI will back down to a certain range
+		if (this.isAI && p1.ballHeld) {
+			if (p1.x < this.x-400) {
+							this.speedX += -PLAYER_MOVE_SPEED;
+			}
+			else if(p1.x > this.x-400) {
+				this.speedX += PLAYER_MOVE_SPEED;
+			}
+		}
+
+		//if the ball is above and front of him while ball is not slow, AI will go forwards because it is likely that ball is going behind of him.
+		//And the ball is below certain range and is not slow, AI will go backwards
+		if (this.isAI && ballSpeedX> 50 &&
+				!ballTouchedFloor && ballX < this.x) {
+			if (ballY < this.y - 80) {
+				//console.log("moving towards middle");
+				this.speedX -= PLAYER_MOVE_SPEED;
+			}
+			else {
+				//console.log("moving towards back");
+				this.speedX += PLAYER_MOVE_SPEED
+			}
+		}
+
+		if (this.isAI && ballTouchedFloor == true &&
+				ballX > MID_POINT + NET) {
+					if (this.x > ballX) {
+						this.speedX = -PLAYER_MOVE_SPEED;
+					} else {
+						this.speedX = PLAYER_MOVE_SPEED;
+					}
 		}
 	}
 }
