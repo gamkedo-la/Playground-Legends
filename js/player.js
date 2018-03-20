@@ -1,6 +1,6 @@
 const PLAYER_MOVE_SPEED = 400; // pixels per second
 const PLAYER_JUMP_SPEED = 300; // pixels per second
-const THROW_POWER = 600;  // pixels per second
+const THROW_POWER = 675;  // pixels per second
 const PLAYER_GRAVITY = 800; // pixels per second
 
 const PLAYER_MOMENTUM = 0.20; // friction/drag
@@ -40,12 +40,19 @@ function playerClass() {
 		if(this.ballHeld){
 			this.ballHeld = false;
 			this.recentlyThrownFrameLock = 2;
-			var distToMouse = dist(this.x,this.y, mouseX,mouseY);
-			var posX = x - this.x;
-			var posY = y - this.y;
-			//Mouse position determines which direction the ball will be thrown
-			ballSpeedX = posX * THROW_POWER / distToMouse;
-			ballSpeedY = posY * THROW_POWER / distToMouse;
+			if(this.AI){
+				var velocity = THROW_POWER;
+				var angle = Math.atan(y/x);
+				ballSpeedX = -velocity*Math.cos(angle); 
+				ballSpeedY = -velocity*Math.sin(angle);
+			}else{
+				var distToMouse = dist(this.x,this.y, mouseX,mouseY);
+				var posX = x - this.x;
+				var posY = y - this.y;
+				//Mouse position determines which direction the ball will be thrown
+				ballSpeedX = posX * THROW_POWER / distToMouse;
+				ballSpeedY = posY * THROW_POWER / distToMouse;
+			}			
 		}
 	}
 
@@ -90,25 +97,7 @@ function playerClass() {
 			} else {
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
-		}
-
-		// AI player tries to catch the ball if the ball is thrown on its side
-		// also if player speed is more than the ball speed, it tries to match the speed of the ball
-		// after ball is thrown back, it does not follow the ball
-		// if(this.isAI && !this.ballHeld
-		// 	&& ballX > MID_POINT + NET && ballY < FLOOR_Y && ballSpeedX>0.0) {
-		// 	if (this.x > ballX) {
-		// 		this.speedX = -PLAYER_MOVE_SPEED;
-		// 		if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
-		// 			this.speedX = -ballSpeedX;
-		// 		}
-		// 	} else {
-		// 		this.speedX = PLAYER_MOVE_SPEED;
-		// 		if(Math.abs(this.speedX)>Math.abs(ballSpeedX)){
-		// 			this.speedX = ballSpeedX;
-		// 		}
-		// 	}
-		// }
+		}		
 
 		//Enforce wall collisions and mid-point collisions
 		if(p1.x < LEFT_WALL_X) {
@@ -156,25 +145,12 @@ function playerClass() {
 			this.timeLimit = TIME_LIMIT_MAX;
 		}
 
-		//AI throwing the ball and tries to throw it in position where player1 is not present
+		//AI throwing the ball and trying to get a hit to the player
 		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
-			var velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
-			var angle = (Math.random()*(Math.PI/2))+0.1;
-			var xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)
-			var xLandedBallPos = p2.x - xDisOfTrajectory;
-			// console.log(xDisOfTrajectory);
-			// console.log(p1.x);
-			// console.log(xLandedBallPos);
-			while(!(xLandedBallPos != p1.x && (MID_POINT > xLandedBallPos) && (xLandedBallPos > 0))){
-				velocity = Math.floor((Math.random()*(THROW_POWER))+(THROW_POWER-200));
-				angle = (Math.random()*(Math.PI/2))+0.1;
-				xDisOfTrajectory = (velocity*Math.cos(angle))*((2*velocity*Math.sin(angle))/BALL_GRAVITY)
-				xLandedBallPos = p2.x - xDisOfTrajectory;
-			}
-			this.ballHeld = false;
-			this.recentlyThrownFrameLock = 2;
-			ballSpeedX = -velocity*Math.cos(angle);
-			ballSpeedY = -velocity*Math.sin(angle);
+			var yOffset = -17;
+			//because p1.y is FLOOR_Y 
+			//so we need an offset to throw the ball not at the foot of the player
+			this.throwAtPos(p1.x,p1.y+yOffset);			
 		}
 
 		if(this.timeLimit <= 0) {
