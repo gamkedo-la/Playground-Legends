@@ -26,6 +26,8 @@ function playerClass() {
 	this.ballHeld = false;
 	this.recentlyThrownFrameLock = 0;
 
+	this.IsTryingToCatch = false;
+
 	this.draw= function() {
 		if (this.isAI) {
 			canvasContext.translate(this.x,this.y);
@@ -43,7 +45,7 @@ function playerClass() {
 			if(this.AI){
 				var velocity = THROW_POWER;
 				var angle = Math.atan(y/x);
-				ballSpeedX = -velocity*Math.cos(angle); 
+				ballSpeedX = -velocity*Math.cos(angle);
 				ballSpeedY = -velocity*Math.sin(angle);
 			}else{
 				var distToMouse = dist(this.x,this.y, mouseX,mouseY);
@@ -52,7 +54,15 @@ function playerClass() {
 				//Mouse position determines which direction the ball will be thrown
 				ballSpeedX = posX * THROW_POWER / distToMouse;
 				ballSpeedY = posY * THROW_POWER / distToMouse;
-			}			
+
+				//When the p1 throws the ball AI decides between trying to catch the ball or dodge the ball based on ballSpeedX
+				if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
+					p2.IsTryingToCatch = true;
+				}
+        else {
+          p2.IsTryingToCatch = false;
+        }
+			}
 		}
 	}
 
@@ -97,7 +107,7 @@ function playerClass() {
 			} else {
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
-		}		
+		}
 
 		//Enforce wall collisions and mid-point collisions
 		if(p1.x < LEFT_WALL_X) {
@@ -145,12 +155,13 @@ function playerClass() {
 			this.timeLimit = TIME_LIMIT_MAX;
 		}
 
+
 		//AI throwing the ball and trying to get a hit to the player
 		if(this.timeLimit === 50 && this.isAI && this.ballHeld) {
 			var yOffset = -17;
-			//because p1.y is FLOOR_Y 
+			//because p1.y is FLOOR_Y
 			//so we need an offset to throw the ball not at the foot of the player
-			this.throwAtPos(p1.x,p1.y+yOffset);			
+			this.throwAtPos(p1.x,p1.y+yOffset);
 		}
 
 		if(this.timeLimit <= 0) {
@@ -194,34 +205,55 @@ function playerClass() {
 		//if p1 holds the ball AI will back down to a certain range
 		if (this.isAI && p1.ballHeld) {
 			if (p1.x < this.x-400) {
-							this.speedX += -PLAYER_MOVE_SPEED;
+				this.speedX += -PLAYER_MOVE_SPEED;
 			}
 			else if(p1.x > this.x-400) {
 				this.speedX += PLAYER_MOVE_SPEED;
 			}
 		}
 
-		//if the ball is above and front of him while ball is not slow, AI will go forwards because it is likely that ball is going behind of him.
+		//if AI decides to not the catch the ball and if the ball is above and front of him while ball is not slow, AI will go forwards because it is likely that ball is going behind of him.
 		//And the ball is below certain range and is not slow, AI will go backwards
-		if (this.isAI && ballSpeedX> 50 &&
-				!ballTouchedFloor && ballX < this.x) {
-			if (ballY < this.y - 80) {
-				//console.log("moving towards middle");
-				this.speedX -= PLAYER_MOVE_SPEED;
-			}
-			else {
-				//console.log("moving towards back");
-				this.speedX += PLAYER_MOVE_SPEED
-			}
-		}
+    //if AI decides to catch to ball, AI will try to go towards the ball and will try to catch it depending on balls speed.
 
-		if (this.isAI && ballTouchedFloor == true &&
-				ballX > MID_POINT + NET) {
-					if (this.x > ballX) {
-						this.speedX = -PLAYER_MOVE_SPEED;
-					} else {
-						this.speedX = PLAYER_MOVE_SPEED;
-					}
+  		if (this.isAI && ballSpeedX> 50 &&
+  				!ballTouchedFloor && ballX < this.x) {
+        if (!this.IsTryingToCatch) {
+          console.log("not trying to catch");
+          if (ballY < this.y - 80) {
+            //console.log("moving towards middle");
+            this.speedX -= PLAYER_MOVE_SPEED;
+          }
+          else {
+            //console.log("moving towards back");
+            this.speedX += PLAYER_MOVE_SPEED
+          }
+        }
+        else {
+          console.log("trying to catch");
+          var distToAI = dist(this.x,this.y,ballX,ballY);
+          if (this.x > ballX) {
+          	this.speedX = -PLAYER_MOVE_SPEED;
+          }
+          else {
+            this.speedX = PLAYER_MOVE_SPEED;
+          }
+          if (distToAI <= 150) {
+            if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
+              console.log("catch success");
+              this.ballHeld = true;
+            }
+          }
+        }
+  		}
+
+  		if (this.isAI && ballTouchedFloor == true &&
+  				ballX > MID_POINT + NET) {
+  			if (this.x > ballX) {
+  				this.speedX = -PLAYER_MOVE_SPEED;
+  				}
+  			else {
+  				this.speedX = PLAYER_MOVE_SPEED;					}
 		}
 	}
 }
