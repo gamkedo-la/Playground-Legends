@@ -78,7 +78,8 @@ function playerClass() {
 	this.move=function() {
 		//console.log(ballTouchedFloor);
 		this.speedX *= PLAYER_MOMENTUM;
-		if(this.isAI && ballY < FLOOR_Y - 2){
+		if(this.isAI && ballY < FLOOR_Y - 2 
+			&& ballSpeedX > 10 && ballSpeedY > 10){
 			if(Math.random() < 0.03){
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
@@ -100,7 +101,7 @@ function playerClass() {
 
 		//AI player moves towards ball if it is on their side and not moving very much
 		if(this.isAI && !this.ballHeld
-			&& ballX > MID_POINT + NET && ballY == FLOOR_Y
+			&& ballX > MID_POINT - NET && ballY == FLOOR_Y
 			&& ballSpeedX < 10 && ballSpeedY < 10) {
 			if (this.x > ballX) {
 				this.speedX = -PLAYER_MOVE_SPEED;
