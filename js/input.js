@@ -5,6 +5,7 @@ const KEY_DOWN_ARROW = 40;
 const KEY_A = 65;
 const KEY_D = 68;
 const KEY_W = 87;
+const KEY_S = 83;
 
 var keyHeld_MoveLeft = false;
 var keyHeld_Jump = false;
@@ -20,25 +21,23 @@ function keyToggle(keyCode,newState) {
 		case KEY_A:
 			keyHeld_MoveLeft = newState;
 			break;
-        case KEY_W:
-            keyHeld_Jump = newState;
-            break;
-		case KEY_UP_ARROW:
-			keyHeld_Jump = newState;
-			break;
+        	case KEY_UP_ARROW:
+		case KEY_W:
+           		keyHeld_Jump = newState;
+            		break;
 		case KEY_RIGHT_ARROW:
 		case KEY_D:
 			keyHeld_MoveRight = newState;
 			break;
-
 		case KEY_DOWN_ARROW:
+		case KEY_S:
 			keyHeld_Duck = newState;
 			break;
 
 		default:
 			return false;
 	}
-	return true;//key was used by game
+	return true; //key was used by game
 }
 function keyPressed(evt) {
 	if(keyToggle(evt.keyCode,true)) {
