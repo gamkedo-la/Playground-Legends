@@ -21,10 +21,10 @@ function keyToggle(keyCode,newState) {
 		case KEY_A:
 			keyHeld_MoveLeft = newState;
 			break;
-        	case KEY_UP_ARROW:
+        case KEY_UP_ARROW:
 		case KEY_W:
-           		keyHeld_Jump = newState;
-            		break;
+           	keyHeld_Jump = newState;
+            break;
 		case KEY_RIGHT_ARROW:
 		case KEY_D:
 			keyHeld_MoveRight = newState;
