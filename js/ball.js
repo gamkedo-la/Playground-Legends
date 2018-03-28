@@ -13,6 +13,10 @@ var ballY = FLOOR_Y;
 var ballTouchedFloor;
 var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
 
+// ball trails
+var ballTrail = [];
+var ballTrailMax = 30;
+
 //var ballBounced = false;
 
 function drawBall() {
@@ -24,6 +28,15 @@ function drawBall() {
 
 	if (ballImageLoaded) {
 		canvasContext.drawImage(ballImage, ballX - BALL_RADIUS, ballY - BALL_RADIUS);
+
+		// trail effect
+		for (var loop=0; loop<ballTrail.length; loop++) {
+			canvasContext.globalAlpha = loop/ballTrailMax/8 + 0.01; 
+			canvasContext.drawImage(ballImage, ballTrail[loop].x - BALL_RADIUS, ballTrail[loop].y - BALL_RADIUS);
+		}
+		canvasContext.globalAlpha = 1;
+
+
 	}
 
 }
@@ -76,6 +89,10 @@ function moveBall() {
 		ballTouchedFloor = true;
 		ballSpeedY = -ballSpeedY;
 	}
+
+	// remember previous ball positions for trail effect
+	ballTrail.push({x:ballX,y:ballY}); // add a fresh new one to the end of the array
+	if (ballTrail.length>ballTrailMax) ballTrail.shift(); // delete oldest entry if array is full
 }
 
 function ballCollisionWithPlayers(whichPlayer) {
