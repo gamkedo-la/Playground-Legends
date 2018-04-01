@@ -17,8 +17,6 @@ var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
 var ballTrail = [];
 var ballTrailMax = 30;
 
-//var ballBounced = false;
-
 function drawBall() {
 
 	if (shadowImageLoaded &&
@@ -56,13 +54,17 @@ function moveBall() {
 		ballY = BALL_GROUND;
 		ballSpeedX *= BALL_MOMENTUM;
 		ballSpeedY *= BALL_BOUNCE;
+		HitByBall.play();
+		if(ballSpeedX <= 3 && ballSpeedY <= 3) {
+			HitByBall.pause();
+		}
 		//ballGroundHandling();
 	}
 
-    /*    function ballGroundHandling() {
+       /*function ballGroundHandling() {
                   if(ballSpeedY !== 0 && ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
                       ballBounced = true;
-                      //hitByBallSound.play();
+                      HitByBall.play();
                 } else {
                 ballBounced = false;
             }
@@ -73,6 +75,7 @@ function moveBall() {
 	//This will keep the ball within the frame of the canvas horizontally
 	//also avoid getting stuck in the corner
 	if ((ballX < 0 && ballSpeedX < 0.0) || (ballX > canvas.width && ballSpeedX > 0.0)) {
+		HitByBall.play();
 		ballOutOfBoundary = true;
 		ballSpeedX = -ballSpeedX;
 	}

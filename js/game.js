@@ -10,7 +10,7 @@ var secondsSinceLastFrame = 0; // usually less than zero
 var currentFrameTimestamp = 0; // in MS (usually 16 or so)
 
 var roundNumber = 1;
-var roundTimer = 90;
+var roundTimer = 20;
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
@@ -51,6 +51,7 @@ function animate(timestamp) {
 	secondsSinceLastFrame = (timestamp - currentFrameTimestamp) / 1000; // in seconds
 	currentFrameTimestamp = timestamp; // in ms
 	roundTimer -= secondsSinceLastFrame;
+	roundTimerCountdown();
 	p1.move();
 	p2.move();
 	moveBall();
@@ -80,6 +81,16 @@ function drawRoundTimer() {
 	canvasContext.fillRect(canvas.width/2 - textWidth.width/2 - 25, 10, textWidth.width + 25, 40); // Center background
 	canvasContext.fillStyle = 'black'; // Text color
 	canvasContext.fillText(Math.floor(roundTimer), canvas.width/2 - textWidth.width/2 - 12,44); // Center score text
+}
+
+function roundTimerCountdown() {
+	if(roundTimer <= 11 && roundTimer > 1) {
+		roundTimer -= secondsSinceLastFrame;
+		countdown.play();
+	}
+	else if(roundTimer <= 1 && roundTimer >= 0) {
+		timeup.play();
+	}
 }
 
 function drawAll() {

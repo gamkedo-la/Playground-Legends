@@ -95,6 +95,7 @@ function playerClass() {
 				this.speedX = PLAYER_MOVE_SPEED;
 			}
 			if(keyHeld_Jump && this.isOnGround && !this.isAI) {
+				Jump.play();
 				this.speedY = -PLAYER_JUMP_SPEED;
 			}
 		}
@@ -241,6 +242,7 @@ function playerClass() {
           }
           if (distToAI <= 150) {
             if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
+			  CatchingBall.play();
               console.log("catch success");
               this.ballHeld = true;
             }
