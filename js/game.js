@@ -10,7 +10,7 @@ var secondsSinceLastFrame = 0; // usually less than zero
 var currentFrameTimestamp = 0; // in MS (usually 16 or so)
 
 var roundNumber = 1;
-var roundTimer = 20;
+var roundTimer = 90;
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
