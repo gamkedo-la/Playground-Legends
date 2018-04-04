@@ -200,6 +200,7 @@ function playerClass() {
 		//Player will pick up the ball when they are within the DIST_TO_GRAB range
 		else if(dist(this.x,this.y, ballX,ballY) < DIST_TO_GRAB && this.timeLimit > 0) {
 			this.ballHeld = true;
+            catchBallSound.play();
 			ballTouchedFloor = false;
 			ballOutOfBoundary= false;
 		}

@@ -1,6 +1,7 @@
 var audioFormat;
 
 var hitByBallSound = new SoundOverlapsClass("./audio/HitByBall");
+var catchBallSound = new SoundOverlapsClass("./audio/CatchingBall");
 
 var currentBackgroundMusic = new backgroundMusicClass();
 
