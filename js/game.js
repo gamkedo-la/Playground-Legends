@@ -10,7 +10,11 @@ var secondsSinceLastFrame = 0; // usually less than zero
 var currentFrameTimestamp = 0; // in MS (usually 16 or so)
 
 var roundNumber = 1;
-var roundTimer = 90;
+var betweenRounds = false;
+var betweenRoundTimer = 6;
+var betweenRoundTimerReset = 6;
+var roundTimer = 5; // testing
+var roundTimerReset = 5; // testing
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
@@ -50,7 +54,7 @@ function animate(timestamp) {
 	if (!timestamp) timestamp = 1; // avoid NaN and divide by zero
 	secondsSinceLastFrame = (timestamp - currentFrameTimestamp) / 1000; // in seconds
 	currentFrameTimestamp = timestamp; // in ms
-	roundTimer -= secondsSinceLastFrame;
+	if (betweenRounds == false) {
 	roundTimerCountdown();
 	p1.move();
 	p2.move();
@@ -58,6 +62,21 @@ function animate(timestamp) {
 	drawAll();
 	ballCollisionWithPlayers(p1);
 	ballCollisionWithPlayers(p2);
+	} else {
+		canvasContext.fillStyle = 'black'; // Rectangle color
+		canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+		canvasContext.fillStyle = 'white'; // Text color
+		canvasContext.font = "18px Helvetica"; 
+		var scoreDisplay = 'Display score here';
+		var textWidth = canvasContext.measureText(Math.floor(scoreDisplay))
+		canvasContext.fillText(scoreDisplay, (canvas.width/2) - textWidth.width*2,canvas.height/2);
+		betweenRoundTimer -= secondsSinceLastFrame;
+		if (betweenRoundTimer <= 0) {
+			betweenRounds = false;
+			betweenRoundTimer = betweenRoundTimerReset;
+			// function to reset player's positions/vars and switch which player starts with the ball 
+		}
+	}
 	requestAnimationFrame(animate);
 }
 
@@ -84,12 +103,16 @@ function drawRoundTimer() {
 }
 
 function roundTimerCountdown() {
-	if(roundTimer <= 11 && roundTimer > 1) {
+	if (roundTimer > 1) {
 		roundTimer -= secondsSinceLastFrame;
+	}
+	if(roundTimer <= 11 && roundTimer > 1) {
 		countdown.play();
 	}
 	else if(roundTimer <= 1 && roundTimer >= 0) {
 		timeup.play();
+		betweenRounds = true;
+		roundTimer = roundTimerReset;
 	}
 }
 
