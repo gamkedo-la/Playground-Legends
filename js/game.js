@@ -11,10 +11,11 @@ var currentFrameTimestamp = 0; // in MS (usually 16 or so)
 
 var roundNumber = 1;
 var betweenRounds = false;
-var betweenRoundTimer = 6;
-var betweenRoundTimerReset = 6;
-var roundTimer = 5; // testing
-var roundTimerReset = 5; // testing
+var betweenRoundTimer = 4;
+var betweenRoundTimerReset = 4;
+var roundTimer = 91;
+var roundTimerReset = 91;
+
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
@@ -35,7 +36,6 @@ window.onload = function () {
 	},
 		1000 / framesPerSecond);
 */
-
 
 	setUpInput();
 	setUpImages();
@@ -66,15 +66,23 @@ function animate(timestamp) {
 		canvasContext.fillStyle = 'black'; // Rectangle color
 		canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
 		canvasContext.fillStyle = 'white'; // Text color
-		canvasContext.font = "18px Helvetica"; 
-		var scoreDisplay = 'Display score here';
-		var textWidth = canvasContext.measureText(Math.floor(scoreDisplay))
-		canvasContext.fillText(scoreDisplay, (canvas.width/2) - textWidth.width*2,canvas.height/2);
+		canvasContext.font = '18px Helvetica'; 
+		var roundDisplay = 'End of round ' + roundNumber;
+		var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
+		canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+		var playerOneScore = p1.score;
+		var playerTwoScore = p2.score;
+		textWidth = canvasContext.measureText(Math.floor(playerOneScore));
+		canvasContext.font = '28px Helvetica'; 
+		canvasContext.fillText(playerOneScore, (canvas.width/2) - textWidth.width*2 - 50,canvas.height/2 + 10);
+		textWidth = canvasContext.measureText(Math.floor(playerTwoScore));
+		canvasContext.fillText(playerTwoScore, (canvas.width/2) - textWidth.width*2 + 100,canvas.height/2 + 10);
 		betweenRoundTimer -= secondsSinceLastFrame;
 		if (betweenRoundTimer <= 0) {
 			betweenRounds = false;
 			betweenRoundTimer = betweenRoundTimerReset;
-			// function to reset player's positions/vars and switch which player starts with the ball 
+			resetAfterRound(); 
+			roundNumber++;
 		}
 	}
 	requestAnimationFrame(animate);
