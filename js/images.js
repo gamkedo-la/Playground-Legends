@@ -1,6 +1,9 @@
 var player1 = document.createElement("img");
 var player1Loaded = false;
 
+var player2 = document.createElement("img");
+var player2Loaded = false;
+
 var ballImage = document.createElement("img");
 var ballImageLoaded = false;
 
@@ -13,6 +16,11 @@ function setUpImages() {
 		player1Loaded = true;	
 	}
 	player1.src = "images/player1.png";
+	
+	player2.onload = function() {
+		player2Loaded = true;	
+	}
+	player2.src = "images/player2.png";
 
 	ballImage.onload = function() {
 		ballImageLoaded = true;	

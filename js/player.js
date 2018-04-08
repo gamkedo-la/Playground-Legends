@@ -33,7 +33,7 @@ function playerClass() {
 		if (this.isAI) {
 			canvasContext.translate(this.x,this.y);
 			canvasContext.scale(-1,1);
-			canvasContext.drawImage(player1, 0-player1.width/2, 0-player1.height);
+			canvasContext.drawImage(player2, 0-player2.width/2, 0-player2.height);
 			canvasContext.setTransform(1,0,0,1,0,0);
 		} else {
 			canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);

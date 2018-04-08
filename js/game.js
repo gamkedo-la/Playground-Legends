@@ -13,7 +13,7 @@ var roundNumber = 1;
 var betweenRounds = false;
 var betweenRoundTimer = 4;
 var betweenRoundTimerReset = 4;
-var roundTimer = 91;
+var roundTimer = 3;
 var roundTimerReset = 91;
 
 
@@ -110,6 +110,13 @@ function drawRoundTimer() {
 	canvasContext.fillText(Math.floor(roundTimer), canvas.width/2 - textWidth.width/2 - 12,44); // Center score text
 }
 
+function drawHitCounter() {
+	canvasContext.fillStyle = 'red';
+	canvasContext.beginPath();
+	canvasContext.arc(canvas.width - 300, canvas.height - 570, 9, 0,Math.PI * 2, true);
+	canvasContext.fill();	
+}
+
 function roundTimerCountdown() {
 	if (roundTimer > 1) {
 		roundTimer -= secondsSinceLastFrame;
@@ -130,11 +137,15 @@ function drawAll() {
 
 	if (player1Loaded) {
 		p1.draw();
+	}
+	
+	if (player2Loaded) {
 		p2.draw();
 	}
 
 	drawBall();
 	drawRoundTimer();
+	drawHitCounter();
 	//canvasContext.fillStyle = 'red';
 	//canvasContext.beginPath();
 	//canvasContext.arc(ballX, ballY, BALL_RADIUS, 0,Math.PI * 2, true);
