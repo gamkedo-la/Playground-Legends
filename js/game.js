@@ -110,12 +110,6 @@ function drawRoundTimer() {
 	canvasContext.fillText(Math.floor(roundTimer), canvas.width/2 - textWidth.width/2 - 12,44); // Center score text
 }
 
-function drawHitCounter() {
-	canvasContext.fillStyle = 'red';
-	canvasContext.beginPath();
-	canvasContext.arc(canvas.width - 300, canvas.height - 570, 9, 0,Math.PI * 2, true);
-	canvasContext.fill();	
-}
 
 function roundTimerCountdown() {
 	if (roundTimer > 1) {
@@ -145,9 +139,4 @@ function drawAll() {
 
 	drawBall();
 	drawRoundTimer();
-	drawHitCounter();
-	//canvasContext.fillStyle = 'red';
-	//canvasContext.beginPath();
-	//canvasContext.arc(ballX, ballY, BALL_RADIUS, 0,Math.PI * 2, true);
-	//canvasContext.fill();	
 }
