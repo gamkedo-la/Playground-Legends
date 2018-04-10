@@ -85,6 +85,8 @@ function moveBall() {
 	}
 	if (ballY > FLOOR_Y - 21) {
 		ballTouchedFloor = true;
+		p1.score += 0;
+		p2.score += 0;
 	}
 
 	//This will keep the ball within the frame of the canvas vertically
@@ -107,6 +109,12 @@ function ballCollisionWithPlayers(whichPlayer) {
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
 		return true;
+	}
+	if (diffX < closeEnough && diffY < closeEnough
+		&& ballTouchedFloor == true && ballOutOfBoundary == true) {
+		p1.score += 0;
+		p2.score += 0;
+		return false;
 	}
 	return false;
 }

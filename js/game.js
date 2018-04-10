@@ -14,7 +14,7 @@ var betweenRounds = false;
 var betweenRoundTimer = 4;
 var betweenRoundTimerReset = 4;
 var roundTimer = 10;
-var roundTimerReset = 91;
+var roundTimerReset = 11;
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
@@ -87,6 +87,24 @@ function animate(timestamp) {
 			betweenRoundTimer = betweenRoundTimerReset;
 			resetAfterRound(); 
 			roundNumber++;
+		}
+		if (p1.roundsWon == 2) {
+			canvasContext.fillStyle = 'black'; // Rectangle color
+			canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+			canvasContext.fillStyle = 'white'; // Text color
+			canvasContext.font = '18px Helvetica'; 
+			var roundDisplay = 'You Win!';
+			var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
+			canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+		}
+		if (p2.roundsWon == 2) {
+			canvasContext.fillStyle = 'black'; // Rectangle color
+			canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+			canvasContext.fillStyle = 'white'; // Text color
+			canvasContext.font = '18px Helvetica'; 
+			var roundDisplay = 'You Lose!';
+			var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
+			canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
 		}
 	}
 	requestAnimationFrame(animate);
