@@ -125,6 +125,28 @@ function roundTimerCountdown() {
 	}
 }
 
+function drawBallForfeitTimer() {
+	var drawX = 0;
+	var drawY = 0;
+	var drawTime = 0.0;
+	
+	if (p1.ballHeld) {
+		drawX = p1.x;
+		drawY = p1.y;
+		drawTime = p1.timeLimit * .588; //calculated to change 170 timeLimit to percentage
+	}
+	if (p2.ballHeld) {
+		drawX = p2.x;
+		drawY = p2.y;
+		drawTime = p2.timeLimit * .588;
+	}
+	
+	canvasContext.fillStyle = 'black';
+	canvasContext.fillRect(drawX - 20,drawY - 135,40,10);
+	canvasContext.fillStyle = 'red';
+	canvasContext.fillRect(drawX - 18,drawY - 133, 36 * (drawTime / 100), 6);
+}
+
 function drawAll() {
 	var background = document.getElementById("background");
 	canvasContext.drawImage(background, 0, 0);
@@ -139,4 +161,5 @@ function drawAll() {
 
 	drawBall();
 	drawRoundTimer();
+	drawBallForfeitTimer();
 }
