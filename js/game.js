@@ -16,7 +16,6 @@ var betweenRoundTimerReset = 4;
 var roundTimer = 3;
 var roundTimerReset = 91;
 
-
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
 
@@ -55,13 +54,18 @@ function animate(timestamp) {
 	secondsSinceLastFrame = (timestamp - currentFrameTimestamp) / 1000; // in seconds
 	currentFrameTimestamp = timestamp; // in ms
 	if (betweenRounds == false) {
-	roundTimerCountdown();
-	p1.move();
-	p2.move();
-	moveBall();
-	drawAll();
-	ballCollisionWithPlayers(p1);
-	ballCollisionWithPlayers(p2);
+		roundTimerCountdown();
+		p1.move();
+		p2.move();
+		moveBall();
+		drawAll();
+		
+		if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
+			p2.score++; // player 1 was hit so player 2 scores
+		}
+		if (ballCollisionWithPlayers(p2)) {
+			p1.score++; // player 2 was hit so player 1 scores
+		}
 	} else {
 		canvasContext.fillStyle = 'black'; // Rectangle color
 		canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
@@ -70,8 +74,8 @@ function animate(timestamp) {
 		var roundDisplay = 'End of round ' + roundNumber;
 		var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
 		canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
-		var playerOneScore = p1.score;
-		var playerTwoScore = p2.score;
+		var playerOneScore = p1.roundsWon;
+		var playerTwoScore = p2.roundsWon;
 		textWidth = canvasContext.measureText(Math.floor(playerOneScore));
 		canvasContext.font = '28px Helvetica'; 
 		canvasContext.fillText(playerOneScore, (canvas.width/2) - textWidth.width*2 - 50,canvas.height/2 + 10);
@@ -122,6 +126,14 @@ function roundTimerCountdown() {
 		timeup.play();
 		betweenRounds = true;
 		roundTimer = roundTimerReset;
+		
+		// Check who won round and assign point
+		if (p1.score > p2.score) {
+			p1.roundsWon++;
+		}
+		else if (p2.score > p1.score) {
+			p2.roundsWon++;
+		}
 	}
 }
 
@@ -147,6 +159,13 @@ function drawBallForfeitTimer() {
 	canvasContext.fillRect(drawX - 18,drawY - 133, 36 * (drawTime / 100), 6);
 }
 
+function drawScores() {
+	canvasContext.fillStyle = 'white';
+	canvasContext.font="40px Helvetica";
+	canvasContext.fillText(p1.score, 20, canvas.height - 20);
+	canvasContext.fillText(p2.score, canvas.width - 80, canvas.height - 20);
+}
+
 function drawAll() {
 	var background = document.getElementById("background");
 	canvasContext.drawImage(background, 0, 0);
@@ -162,4 +181,5 @@ function drawAll() {
 	drawBall();
 	drawRoundTimer();
 	drawBallForfeitTimer();
+	drawScores();
 }

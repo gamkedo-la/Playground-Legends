@@ -20,6 +20,7 @@ function playerClass() {
 	this.speedX = 0;
 	this.speedY = 0;
 	this.score = 0;
+	this.roundsWon = 0
 	this.isOnGround = false;
 	this.timeLimit = TIME_LIMIT_MAX;
 

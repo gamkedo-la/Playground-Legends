@@ -106,7 +106,9 @@ function ballCollisionWithPlayers(whichPlayer) {
 		&& ballTouchedFloor == false && ballOutOfBoundary == false) {
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
+		return true;
 	}
+	return false;
 }
 
 function clamp(val, min, max) {

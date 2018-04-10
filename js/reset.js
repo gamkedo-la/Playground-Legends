@@ -8,6 +8,7 @@ function resetAfterRound() {
 	p1.ballForfeit = false;
 	p1.ballHeld = false;
 	p1.recentlyThrownFrameLock = 0;
+	p1.score = 0;
 	
 	p2.x = 650;
 	p2.y = FLOOR_Y;
@@ -19,6 +20,7 @@ function resetAfterRound() {
 	p2.ballHeld = false;
 	p2.recentlyThrownFrameLock = 0;
 	p2.IsTryingToCatch = false;
+	p2.score = 0;
 
 	ballX = 100;
 	ballY = FLOOR_Y;
