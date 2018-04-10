@@ -13,7 +13,7 @@ var roundNumber = 1;
 var betweenRounds = false;
 var betweenRoundTimer = 4;
 var betweenRoundTimerReset = 4;
-var roundTimer = 3;
+var roundTimer = 10;
 var roundTimerReset = 91;
 
 // unimplemented full screen resizing - leave at false for now

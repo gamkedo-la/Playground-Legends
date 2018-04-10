@@ -184,6 +184,7 @@ function playerClass() {
 			ballY = p2.y-player1.height/2;
 			ballSpeedX = 0;
 			ballSpeedY = 0;
+			p1.score--;
 			this.timeLimit--;
 		} else if(p2.ballForfeit == true) {
 			p2.ballForfeit = false;
@@ -192,6 +193,7 @@ function playerClass() {
 			ballY = p1.y-player1.height/2;
 			ballSpeedX = 0;
 			ballSpeedY = 0;
+			p2.score--;
 			this.timeLimit--;
 		}
 
@@ -246,6 +248,7 @@ function playerClass() {
           if (distToAI <= 150) {
             if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
 			  CatchingBall.play();
+			  p2.score++;
               console.log("catch success");
               this.ballHeld = true;
             }
