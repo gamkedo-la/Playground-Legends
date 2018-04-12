@@ -16,6 +16,8 @@ var betweenRoundTimerReset = 4;
 var roundTimer = 10;
 var roundTimerReset = 11;
 
+var gamePaused = false;
+
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
 
@@ -54,11 +56,13 @@ function animate(timestamp) {
 	secondsSinceLastFrame = (timestamp - currentFrameTimestamp) / 1000; // in seconds
 	currentFrameTimestamp = timestamp; // in ms
 	if (betweenRounds == false) {
-		roundTimerCountdown();
-		p1.move();
-		p2.move();
-		moveBall();
-		drawAll();
+		if (gamePaused == false) {
+            roundTimerCountdown();
+            p1.move();
+            p2.move();
+            moveBall();
+		}
+        drawAll();
 		
 		if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 			p2.score++; // player 1 was hit so player 2 scores
@@ -200,4 +204,18 @@ function drawAll() {
 	drawRoundTimer();
 	drawBallForfeitTimer();
 	drawScores();
+	if (gamePaused) {
+		canvasContext.globalAlpha = 0.3;
+        canvasContext.fillStyle = 'black';
+        canvasContext.fillRect(0,0, canvas.width,canvas.height);
+        canvasContext.globalAlpha = 1;
+        canvasContext.fillStyle = 'white';
+		canvasContext.textAlign = "center";
+		canvasContext.fillText("Paused", canvas.width / 2, canvas.height / 2);
+		canvasContext.textAlign = "left";
+	}
+}
+
+function togglePauseState() {
+	gamePaused = !gamePaused;
 }

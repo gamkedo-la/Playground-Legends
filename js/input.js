@@ -6,6 +6,7 @@ const KEY_A = 65;
 const KEY_D = 68;
 const KEY_W = 87;
 const KEY_S = 83;
+const KEY_P = 80;
 
 var keyHeld_MoveLeft = false;
 var keyHeld_Jump = false;
@@ -32,6 +33,11 @@ function keyToggle(keyCode,newState) {
 		case KEY_DOWN_ARROW:
 		case KEY_S:
 			keyHeld_Duck = newState;
+			break;
+		case KEY_P:
+			if (newState) {
+				togglePauseState();
+			}
 			break;
 
 		default:
