@@ -65,6 +65,7 @@ function calculateMousePos(evt){
 function handleClick() {
 	p1.throwAtPos(mouseX,mouseY);
 	p1.catchBall();
+	console.log("Clicked");
 }
 
 function setUpInput() {

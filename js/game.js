@@ -17,13 +17,18 @@ var roundTimer = 10;
 var roundTimerReset = 11;
 
 var gamePaused = false;
+var shakeAmt = 0.0;
+var background;
 
 // unimplemented full screen resizing - leave at false for now
 const RESPONSIVE_CANVAS_RESIZE = false;
+const SHAKE_DECAY = 0.8;
+const SHAKE_PIXELS = 15;
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+    background = document.getElementById("background");
 
 	resizeCanvas();
 
@@ -66,9 +71,11 @@ function animate(timestamp) {
 		
 		if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 			p2.score++; // player 1 was hit so player 2 scores
+
 		}
 		if (ballCollisionWithPlayers(p2)) {
 			p1.score++; // player 2 was hit so player 1 scores
+
 		}
 	} else {
 		canvasContext.fillStyle = 'black'; // Rectangle color
@@ -189,7 +196,9 @@ function drawScores() {
 }
 
 function drawAll() {
-	var background = document.getElementById("background");
+	shakeAmt *= SHAKE_DECAY;
+	canvasContext.save();
+	canvasContext.translate((Math.random() - 0.5) * shakeAmt, (Math.random() - 0.5) * shakeAmt);
 	canvasContext.drawImage(background, 0, 0);
 
 	if (player1Loaded) {
@@ -201,6 +210,8 @@ function drawAll() {
 	}
 
 	drawBall();
+
+	canvasContext.restore(); // Lines after this won't shake from screen shake.
 	drawRoundTimer();
 	drawBallForfeitTimer();
 	drawScores();
@@ -218,4 +229,8 @@ function drawAll() {
 
 function togglePauseState() {
 	gamePaused = !gamePaused;
+}
+
+function shakeScreen() {
+	shakeAmt = SHAKE_PIXELS;
 }

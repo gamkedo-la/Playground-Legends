@@ -42,6 +42,7 @@ function playerClass() {
 	}
 	this.throwAtPos= function(x,y) {
 		if(this.ballHeld){
+			thrownByPlayer = this;
 			this.ballHeld = false;
 			this.recentlyThrownFrameLock = 2;
 			if(this.AI){

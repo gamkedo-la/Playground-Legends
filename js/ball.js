@@ -17,6 +17,8 @@ var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
 var ballTrail = [];
 var ballTrailMax = 30;
 
+var thrownByPlayer = null;
+
 function drawBall() {
 
 	if (shadowImageLoaded &&
@@ -99,15 +101,26 @@ function moveBall() {
 }
 
 function ballCollisionWithPlayers(whichPlayer) {
+	if (p1.ballHeld || p2.ballHeld || ballTouchedFloor || ballOutOfBoundary || thrownByPlayer === whichPlayer){
+		return false;
+	}
 	var diffX = Math.abs(ballX - whichPlayer.x);
 	var diffY = Math.abs(ballY - whichPlayer.y);
 	var closeEnough = 50; // measured in pixels
-	if (diffX < closeEnough && diffY < closeEnough
-		&& ballTouchedFloor == false && ballOutOfBoundary == false) {
+	if (diffX < closeEnough && diffY < closeEnough) {
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
 		return true;
-	}
+	} // Above is for legs; next we will check head
+    diffX = Math.abs(ballX - (whichPlayer.x));
+    diffY = Math.abs(ballY - (whichPlayer.y - player1.height * 0.6));
+    closeEnough = 40; // measured in pixels
+    if (diffX < closeEnough && diffY < closeEnough) {
+        ballSpeedX = -ballSpeedX;
+        ballSpeedY = -ballSpeedY;
+        shakeScreen();
+        return true;
+    }
 	return false;
 }
 
