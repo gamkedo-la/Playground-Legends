@@ -17,6 +17,7 @@ var roundTimer = 10;
 var roundTimerReset = 11;
 const SCORE_TO_WIN_MATCH = 2;
 var matchEnd = false;
+const MAX_HITS = 4;
 
 var gamePaused = false;
 var shakeAmt = 0.0;
@@ -103,11 +104,15 @@ function animate(timestamp) {
 
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
-
+					if(p2.score === MAX_HITS) {
+						endTheRound()
+					}
 				}
 				if (ballCollisionWithPlayers(p2)) {
 					p1.score++; // player 2 was hit so player 1 scores
-				
+					if(p1.score === MAX_HITS) {
+						endTheRound()
+					}
 				}
 			} else {
 				canvasContext.fillStyle = 'black'; // Rectangle color
@@ -143,6 +148,7 @@ function animate(timestamp) {
 				 
 				}
 			}
+			drawScores();
 		}
 	}
 
@@ -180,17 +186,21 @@ function roundTimerCountdown() {
 		countdown.play();
 	}
 	else if(roundTimer <= 1 && roundTimer >= 0) {
-		timeup.play();
-		betweenRounds = true;
-		roundTimer = roundTimerReset;
+		endTheRound()
+	}
+}
 
-		// Check who won round and assign point
-		if (p1.score > p2.score) {
-			p1.roundsWon++;
-		}
-		else if (p2.score > p1.score) {
-			p2.roundsWon++;
-		}
+function endTheRound() {
+	timeup.play();
+	betweenRounds = true;
+	roundTimer = roundTimerReset;
+
+	// Check who won round and assign point
+	if (p1.score > p2.score) {
+		p1.roundsWon++;
+	}
+	else if (p2.score > p1.score) {
+		p2.roundsWon++;
 	}
 }
 
@@ -242,7 +252,6 @@ function drawAll() {
 	canvasContext.restore(); // Lines after this won't shake from screen shake.
 	drawRoundTimer();
 	drawBallForfeitTimer();
-	drawScores();
 	if (gamePaused) {
 		canvasContext.globalAlpha = 0.3;
         canvasContext.fillStyle = 'black';
