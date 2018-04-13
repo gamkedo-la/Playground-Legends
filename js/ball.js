@@ -29,16 +29,21 @@ function drawBall() {
 	if (ballImageLoaded) {
 		canvasContext.drawImage(ballImage, ballX - BALL_RADIUS, ballY - BALL_RADIUS);
 
-		// trail effect
-		for (var loop=0; loop<ballTrail.length; loop++) {
-			canvasContext.globalAlpha = loop/ballTrailMax/8 + 0.01; 
-			canvasContext.drawImage(ballImage, ballTrail[loop].x - BALL_RADIUS, ballTrail[loop].y - BALL_RADIUS);
+		if (p1.ballHeld == false && p2.ballHeld == false) {
+				trailEffect();
 		}
-		canvasContext.globalAlpha = 1;
-
 
 	}
 
+}
+
+function trailEffect() {
+	// trail effect
+				for (var loop=0; loop<ballTrail.length; loop++) {
+					canvasContext.globalAlpha = loop/ballTrailMax/8 + 0.01; 
+					canvasContext.drawImage(ballImage, ballTrail[loop].x - BALL_RADIUS, ballTrail[loop].y - BALL_RADIUS);
+				}
+				canvasContext.globalAlpha = 1;
 }
 
 function moveBall() {
