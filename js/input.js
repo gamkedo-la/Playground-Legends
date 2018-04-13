@@ -15,6 +15,7 @@ var keyHeld_Duck = false;
 
 var mouseX = 0;
 var mouseY = 0;
+var mouseDown = false;
 
 function keyToggle(keyCode,newState) {
 	switch(keyCode) {
@@ -63,9 +64,14 @@ function calculateMousePos(evt){
 }
 
 function handleClick() {
+	mouseDown = true;
 	p1.throwAtPos(mouseX,mouseY);
 	p1.catchBall();
 	console.log("Clicked");
+}
+
+function handleClickRelease() {
+	mouseDown = false;
 }
 
 function setUpInput() {
@@ -73,4 +79,5 @@ function setUpInput() {
 	document.addEventListener('keyup', keyReleased);
 	canvas.addEventListener('mousemove',calculateMousePos);
 	canvas.addEventListener('mousedown', handleClick);
+	canvas.addEventListener('mouseup', handleClickRelease);
 }
