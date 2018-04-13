@@ -34,20 +34,20 @@ const SHAKE_PIXELS = 15;
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-    background = document.getElementById("background");
+	background = document.getElementById("background");
 
 	resizeCanvas();
 
-/*
-	var framesPerSecond = 30;
-	setInterval(function () {
-		drawAll();
-		moveBall();
-		p1.move();
-		p2.move();
-	},
-		1000 / framesPerSecond);
-*/
+	/*
+		var framesPerSecond = 30;
+		setInterval(function () {
+			drawAll();
+			moveBall();
+			p1.move();
+			p2.move();
+		},
+			1000 / framesPerSecond);
+	*/
 
 	setUpInput();
 	setUpImages();
@@ -86,12 +86,12 @@ function animate(timestamp) {
 		default: {
 			if (betweenRounds == false) {
 				if (gamePaused == false) {
-		            roundTimerCountdown();
-		            p1.move();
-		            p2.move();
-		            moveBall();
+					roundTimerCountdown();
+					p1.move();
+					p2.move();
+					moveBall();
 				}
-		        drawAll();
+				drawAll();
 
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
@@ -103,19 +103,19 @@ function animate(timestamp) {
 				}
 			} else {
 				canvasContext.fillStyle = 'black'; // Rectangle color
-				canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+				canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
 				canvasContext.fillStyle = 'white'; // Text color
 				canvasContext.font = '18px Helvetica';
 				var roundDisplay = 'End of round ' + roundNumber;
 				var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-				canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+				canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
 				var playerOneScore = p1.roundsWon;
 				var playerTwoScore = p2.roundsWon;
 				textWidth = canvasContext.measureText(Math.floor(playerOneScore));
 				canvasContext.font = '28px Helvetica';
-				canvasContext.fillText(playerOneScore, (canvas.width/2) - textWidth.width*2 - 50,canvas.height/2 + 10);
+				canvasContext.fillText(playerOneScore, (canvas.width / 2) - textWidth.width * 2 - 50, canvas.height / 2 + 10);
 				textWidth = canvasContext.measureText(Math.floor(playerTwoScore));
-				canvasContext.fillText(playerTwoScore, (canvas.width/2) - textWidth.width*2 + 100,canvas.height/2 + 10);
+				canvasContext.fillText(playerTwoScore, (canvas.width / 2) - textWidth.width * 2 + 100, canvas.height / 2 + 10);
 				betweenRoundTimer -= secondsSinceLastFrame;
 				if (betweenRoundTimer <= 0) {
 					betweenRounds = false;
@@ -125,21 +125,21 @@ function animate(timestamp) {
 				}
 				if (p1.roundsWon == 2) {
 					canvasContext.fillStyle = 'black'; // Rectangle color
-					canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+					canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
 					canvasContext.fillStyle = 'white'; // Text color
 					canvasContext.font = '18px Helvetica';
 					var roundDisplay = 'You Win!';
 					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-					canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+					canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
 				}
 				if (p2.roundsWon == 2) {
 					canvasContext.fillStyle = 'black'; // Rectangle color
-					canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
+					canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
 					canvasContext.fillStyle = 'white'; // Text color
 					canvasContext.font = '18px Helvetica';
 					var roundDisplay = 'You Lose!';
 					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-					canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+					canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
 				}
 			}
 		}
@@ -163,11 +163,11 @@ function dist(x1, y1, x2, y2) {
 
 function drawRoundTimer() {
 	canvasContext.fillStyle = 'white'; // Background color
-	canvasContext.font="40px Helvetica";
+	canvasContext.font = "40px Helvetica";
 	var textWidth = canvasContext.measureText(Math.floor(roundTimer));
-	canvasContext.fillRect(canvas.width/2 - textWidth.width/2 - 25, 10, textWidth.width + 25, 40); // Center background
+	canvasContext.fillRect(canvas.width / 2 - textWidth.width / 2 - 25, 10, textWidth.width + 25, 40); // Center background
 	canvasContext.fillStyle = 'black'; // Text color
-	canvasContext.fillText(Math.floor(roundTimer), canvas.width/2 - textWidth.width/2 - 12,44); // Center score text
+	canvasContext.fillText(Math.floor(roundTimer), canvas.width / 2 - textWidth.width / 2 - 12, 44); // Center score text
 }
 
 
@@ -175,10 +175,10 @@ function roundTimerCountdown() {
 	if (roundTimer > 1) {
 		roundTimer -= secondsSinceLastFrame;
 	}
-	if(roundTimer <= 11 && roundTimer > 1) {
+	if (roundTimer <= 11 && roundTimer > 1) {
 		countdown.play();
 	}
-	else if(roundTimer <= 1 && roundTimer >= 0) {
+	else if (roundTimer <= 1 && roundTimer >= 0) {
 		timeup.play();
 		betweenRounds = true;
 		roundTimer = roundTimerReset;
@@ -210,16 +210,20 @@ function drawBallForfeitTimer() {
 	}
 
 	canvasContext.fillStyle = 'black';
-	canvasContext.fillRect(drawX - 20,drawY - 135,40,10);
+	canvasContext.fillRect(drawX - 20, drawY - 135, 40, 10);
 	canvasContext.fillStyle = 'red';
-	canvasContext.fillRect(drawX - 18,drawY - 133, 36 * (drawTime / 100), 6);
+	canvasContext.fillRect(drawX - 18, drawY - 133, 36 * (drawTime / 100), 6);
 }
 
 function drawScores() {
 	canvasContext.fillStyle = 'white';
-	canvasContext.font="40px Helvetica";
+	canvasContext.font = "40px Helvetica";
 	canvasContext.fillText(p1.score, 20, canvas.height - 20);
 	canvasContext.fillText(p2.score, canvas.width - 80, canvas.height - 20);
+}
+
+function drawAimer() {
+	canvasContext.drawImage(aimerImage, mouseX - 20, mouseY - 20);
 }
 
 function drawAll() {
@@ -237,6 +241,7 @@ function drawAll() {
 	}
 
 	drawBall();
+	drawAimer();
 
 	canvasContext.restore(); // Lines after this won't shake from screen shake.
 	drawRoundTimer();
@@ -244,10 +249,10 @@ function drawAll() {
 	drawScores();
 	if (gamePaused) {
 		canvasContext.globalAlpha = 0.3;
-        canvasContext.fillStyle = 'black';
-        canvasContext.fillRect(0,0, canvas.width,canvas.height);
-        canvasContext.globalAlpha = 1;
-        canvasContext.fillStyle = 'white';
+		canvasContext.fillStyle = 'black';
+		canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+		canvasContext.globalAlpha = 1;
+		canvasContext.fillStyle = 'white';
 		canvasContext.textAlign = "center";
 		canvasContext.fillText("Paused", canvas.width / 2, canvas.height / 2);
 		canvasContext.textAlign = "left";
