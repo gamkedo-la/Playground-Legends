@@ -10,26 +10,44 @@ var ballImageLoaded = false;
 var shadowImage = document.createElement("img");
 var shadowImageLoaded = false;
 
+var animImage = document.createElement("img");
+var animImageLoaded = false;
+var animSprite;
+
 function setUpImages() {
 
 	player1.onload = function() {
-		player1Loaded = true;	
+		player1Loaded = true;
 	}
 	player1.src = "images/player1.png";
-	
+
 	player2.onload = function() {
-		player2Loaded = true;	
+		player2Loaded = true;
 	}
 	player2.src = "images/player2.png";
 
 	ballImage.onload = function() {
-		ballImageLoaded = true;	
+		ballImageLoaded = true;
 	}
 	ballImage.src = "images/redball.png";
 
 	shadowImage.onload = function() {
-		shadowImageLoaded = true;	
+		shadowImageLoaded = true;
 	}
 	shadowImage.src = "images/shadow.png";
 
+	animSprite = sprite({
+		context: canvasContext,
+		width: 440,
+		height: 40,
+		image: animImage,
+		loop: true,
+		numberOfFrames: 10,
+		ticksPerFrame: 10,
+	});
+	animImage.onload = function() {
+		animImageLoaded = true;
+		console.log(animImage.width);
+	}
+	animImage.src = "images/coin_spritesheet.png";
 }
