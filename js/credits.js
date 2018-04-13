@@ -1,8 +1,14 @@
 var hovering = HOVER_NONE;
+var lastMouseX = mouseX;
+var lastMouseY = mouseY;
 
 function creditsUpdate() {
-    creditsHandleMouseHover();
-    creditsHandleMouseClick();
+    if (!keyboardControlled) {
+        creditsHandleMouseHover();
+        creditsHandleMouseClick();
+    }
+
+    creditsHandleMouseMove();
     creditsDraw();
 }
 
@@ -51,4 +57,22 @@ function creditsHandleMouseClick() {
     if (mouseDown && hovering == HOVER_BACK) {
         scene = SCENE_MAIN_MENU;
     }
+}
+
+function creditsKeyPressed(keycode) {
+    if (keycode == KEY_UP_ARROW || keycode == KEY_DOWN_ARROW) {
+        keyboardControlled = true;
+        hovering = HOVER_BACK;
+    } else if (keycode == KEY_ENTER) {
+        scene = SCENE_MAIN_MENU;
+    }
+}
+
+function creditsHandleMouseMove() {
+    if (mouseX != lastMouseX ||
+        mouseY != lastMouseY) {
+        keyboardControlled = false;
+    }
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
 }

@@ -7,6 +7,7 @@ const KEY_D = 68;
 const KEY_W = 87;
 const KEY_S = 83;
 const KEY_P = 80;
+const KEY_ENTER = 13;
 
 var keyHeld_MoveLeft = false;
 var keyHeld_Jump = false;
@@ -46,9 +47,27 @@ function keyToggle(keyCode,newState) {
 	}
 	return true; //key was used by game
 }
+
 function keyPressed(evt) {
 	if(keyToggle(evt.keyCode,true)) {
 		evt.preventDefault();
+	}
+
+	switch (scene) {
+		case SCENE_MAIN_MENU: {
+			mainMenuKeyPressed(evt.keyCode);
+			break;
+		}
+
+		case SCENE_HOW_TO: {
+			howToPlayKeyPressed(evt.keyCode);
+			break;
+		}
+
+		case SCENE_CREDITS: {
+			creditsKeyPressed(evt.keyCode);
+			break;
+		}
 	}
 }
 

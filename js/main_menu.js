@@ -25,10 +25,17 @@ var creditsCollider = {
 }
 
 var hovering = HOVER_NONE;
+var keyboardControlled = false;
+var lastMouseX = mouseX;
+var lastMouseY = mouseY;
 
 function mainMenuUpdate() {
-    mainMenuHandleMouseHover();
-    mainMenuHandleMouseClick();
+    if (!keyboardControlled) {
+        mainMenuHandleMouseHover();
+        mainMenuHandleMouseClick();
+    }
+
+    mainMenuHandleMouseMove();
     mainMenuDraw();
 }
 
@@ -88,16 +95,47 @@ function mainMenuHandleMouseHover() {
 
 function mainMenuHandleMouseClick() {
     if (mouseDown) {
-        switch (hovering) {
-            case HOVER_START:
-                scene = SCENE_GAME;
-                break;
-            case HOVER_HOW:
-                scene = SCENE_HOW_TO;
-                break;
-            case HOVER_CREDITS:
-                scene = SCENE_CREDITS;
-                break;
-        }
+        mainMenuChangeScreen();
+    }
+}
+
+function mainMenuHandleMouseMove() {
+    if (mouseX != lastMouseX ||
+        mouseY != lastMouseY) {
+        keyboardControlled = false;
+    }
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+}
+
+function mainMenuKeyPressed(keycode) {
+    if (keycode == KEY_UP_ARROW) {
+        keyboardControlled = true;
+        hovering--;
+    } else if (keycode == KEY_DOWN_ARROW) {
+        keyboardControlled = true;
+        hovering++;
+    } else if (keycode == KEY_ENTER) {
+        mainMenuChangeScreen();
+    }
+
+    if (hovering > 3) {
+        hovering = 1;
+    } else if (hovering < 1 && keyboardControlled) {
+        hovering = 3;
+    }
+}
+
+function mainMenuChangeScreen() {
+    switch (hovering) {
+        case HOVER_START:
+            scene = SCENE_GAME;
+            break;
+        case HOVER_HOW:
+            scene = SCENE_HOW_TO;
+            break;
+        case HOVER_CREDITS:
+            scene = SCENE_CREDITS;
+            break;
     }
 }

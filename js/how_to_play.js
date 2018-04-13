@@ -8,10 +8,16 @@ var backCollider = {
 }
 
 var hovering = HOVER_NONE;
+var lastMouseX = mouseX;
+var lastMouseY = mouseY;
 
 function howToPlayUpdate() {
-    howToPlayHandleMouseHover();
-    howToPlayHandleMouseClick();
+    if (!keyboardControlled) {
+        howToPlayHandleMouseHover();
+        howToPlayHandleMouseClick();
+    }
+
+    howToPlayHandleMouseMove();
     howToPlayDraw();
 }
 
@@ -60,4 +66,22 @@ function howToPlayHandleMouseClick() {
     if (mouseDown && hovering == HOVER_BACK) {
         scene = SCENE_MAIN_MENU;
     }
+}
+
+function howToPlayKeyPressed(keycode) {
+    if (keycode == KEY_UP_ARROW || keycode == KEY_DOWN_ARROW) {
+        keyboardControlled = true;
+        hovering = HOVER_BACK;
+    } else if (keycode == KEY_ENTER) {
+        scene = SCENE_MAIN_MENU;
+    }
+}
+
+function howToPlayHandleMouseMove() {
+    if (mouseX != lastMouseX ||
+        mouseY != lastMouseY) {
+        keyboardControlled = false;
+    }
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
 }
