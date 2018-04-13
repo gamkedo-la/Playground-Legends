@@ -15,6 +15,8 @@ var betweenRoundTimer = 4;
 var betweenRoundTimerReset = 4;
 var roundTimer = 10;
 var roundTimerReset = 11;
+const SCORE_TO_WIN_MATCH = 2;
+var matchEnd = false;
 
 var gamePaused = false;
 var shakeAmt = 0.0;
@@ -91,6 +93,12 @@ function animate(timestamp) {
 		            p2.move();
 		            moveBall();
 				}
+				if(matchEnd) {
+					p1.roundsWon = 0;
+					p2.roundsWon = 0;
+					roundNumber = 1;
+					matchEnd = false
+				}
 		        drawAll();
 
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
@@ -99,7 +107,7 @@ function animate(timestamp) {
 				}
 				if (ballCollisionWithPlayers(p2)) {
 					p1.score++; // player 2 was hit so player 1 scores
-
+				
 				}
 			} else {
 				canvasContext.fillStyle = 'black'; // Rectangle color
@@ -123,23 +131,16 @@ function animate(timestamp) {
 					resetAfterRound();
 					roundNumber++;
 				}
-				if (p1.roundsWon == 2) {
+				if (p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH) {
 					canvasContext.fillStyle = 'black'; // Rectangle color
 					canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
 					canvasContext.fillStyle = 'white'; // Text color
 					canvasContext.font = '18px Helvetica';
-					var roundDisplay = 'You Win!';
+					var roundDisplay = p1.roundsWon > p2.roundsWon ?'You Win!': 'You Lose!';
 					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
 					canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
-				}
-				if (p2.roundsWon == 2) {
-					canvasContext.fillStyle = 'black'; // Rectangle color
-					canvasContext.fillRect((canvas.width/2)-150,(canvas.height/2)-75, 300,150);
-					canvasContext.fillStyle = 'white'; // Text color
-					canvasContext.font = '18px Helvetica';
-					var roundDisplay = 'You Lose!';
-					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-					canvasContext.fillText(roundDisplay, (canvas.width/2) - textWidth.width*2 + 10,canvas.height/2 - 40);
+					matchEnd = true;
+				 
 				}
 			}
 		}
