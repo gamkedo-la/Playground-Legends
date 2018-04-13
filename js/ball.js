@@ -114,7 +114,7 @@ function ballCollisionWithPlayers(whichPlayer) {
 	} // Above is for legs; next we will check head
     diffX = Math.abs(ballX - (whichPlayer.x));
     diffY = Math.abs(ballY - (whichPlayer.y - player1.height * 0.6));
-    closeEnough = 40; // measured in pixels
+    closeEnough = 10; // measured in pixels
     if (diffX < closeEnough && diffY < closeEnough) {
         ballSpeedX = -ballSpeedX;
         ballSpeedY = -ballSpeedY;
