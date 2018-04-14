@@ -31,7 +31,7 @@ function setUpImages() {
 		player2Loaded = true;
 	}
 	player2.src = "images/player2.png";
-	
+
 	/*player3.onload = function () {
 		player3Loaded = true;
 	}
@@ -76,7 +76,7 @@ function setUpImages() {
 		console.log(animImage.width);
 	}
 	animImage.src = "images/coin_spritesheet.png";
-	
+
 	animRunningSprite = sprite({
 		context: canvasContext,
 		width: 325,
@@ -91,4 +91,15 @@ function setUpImages() {
 		console.log(animImage.width);
 	}
 	animImage.src = "images/playerRunningSpriteSheet.png";
+}
+
+function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
+	canvasContext.save();
+	canvasContext.translate(x, y);
+	if (angle !== undefined) {
+		canvasContext.rotate(angle);
+	}
+	if (opacity !== undefined) canvasContext.globalAlpha = opacity;
+	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
+	canvasContext.restore();
 }

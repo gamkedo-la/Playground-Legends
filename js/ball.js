@@ -18,10 +18,11 @@ var ballTrail = [];
 var ballTrailMax = 30;
 
 // impact "puff" of dust
-const impactEffectFrameCount = 10;
+const impactEffectFrameCount = 30;
 var impactFramesPending = 0;
 var impactX = 0;
 var impactY = 0;
+var impactAngle = 0;
 
 var thrownByPlayer = null;
 
@@ -33,9 +34,7 @@ function drawBall() {
 	}
 
 	if (impactFramesPending > 0 && impactImageLoaded) {
-		canvasContext.globalAlpha = (1 - (impactFramesPending / impactEffectFrameCount)) * 0.5; // 0.5 to 0
-		canvasContext.drawImage(impactImage, impactX, impactY); // FIXME scale and rotate
-		canvasContext.globalAlpha = 1;
+		drawImageRotatedAlpha(canvasContext, impactImage, impactX, impactY, impactAngle, (1 - (impactFramesPending / impactEffectFrameCount)));
 		impactFramesPending--;
 	}
 
@@ -63,6 +62,7 @@ function impactEffect() {
 	impactFramesPending = impactEffectFrameCount;
 	impactX = ballX - BALL_RADIUS - 16;
 	impactY = ballY - BALL_RADIUS - 16;
+	impactAngle = Math.atan2(ballSpeedY, ballSpeedX);
 	// FIXME - find collision edge point extending radius by speed to hit point not ball center...
 }
 
