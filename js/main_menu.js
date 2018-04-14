@@ -133,12 +133,15 @@ function mainMenuKeyPressed(keycode) {
 function mainMenuChangeScreen() {
     switch (hovering) {
         case HOVER_START:
+			menuSelection.play();
             scene = SCENE_GAME;
             break;
         case HOVER_HOW:
+			menuSelection.play();
             scene = SCENE_HOW_TO;
             break;
         case HOVER_CREDITS:
+			menuSelection.play();
             scene = SCENE_CREDITS;
             break;
     }

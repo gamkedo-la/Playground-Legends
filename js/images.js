@@ -31,6 +31,16 @@ function setUpImages() {
 		player2Loaded = true;
 	}
 	player2.src = "images/player2.png";
+	
+	/*player3.onload = function () {
+		player3Loaded = true;
+	}
+	player3.src = "images/player3.png";
+	
+	player4.onload = function () {
+		player4Loaded = true;
+	}
+	player4.src = "images/player4.png";*/
 
 	ballImage.onload = function () {
 		ballImageLoaded = true;
