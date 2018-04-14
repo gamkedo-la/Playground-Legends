@@ -235,7 +235,9 @@ function drawScores() {
 }
 
 function drawAimer() {
-	canvasContext.drawImage(aimerImage, mouseX - 20, mouseY - 20);
+	if (p1.ballHeld) {
+		canvasContext.drawImage(aimerImage, mouseX - 20, mouseY - 20);
+	}
 }
 
 function drawAll() {
