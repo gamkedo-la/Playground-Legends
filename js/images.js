@@ -13,6 +13,9 @@ var shadowImageLoaded = false;
 var aimerImage = document.createElement("img");
 var aimerImageLoaded = false;
 
+var impactImage = document.createElement("img");
+var impactImageLoaded = false;
+
 var animImage = document.createElement("img");
 var animImageLoaded = false;
 var animSprite;
@@ -43,6 +46,11 @@ function setUpImages() {
 		aimerImageLoaded = true;
 	}
 	aimerImage.src = "images/aimer.png";
+
+	impactImage.onload = function () {
+		impactImageLoaded = true;
+	}
+	impactImage.src = "images/impact.png";
 
 	animSprite = sprite({
 		context: canvasContext,
