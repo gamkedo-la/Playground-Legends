@@ -66,4 +66,19 @@ function setUpImages() {
 		console.log(animImage.width);
 	}
 	animImage.src = "images/coin_spritesheet.png";
+	
+	animRunningSprite = sprite({
+		context: canvasContext,
+		width: 325,
+		height: 124,
+		image: animImage,
+		loop: true,
+		numberOfFrames: 10,
+		ticksPerFrame: 10,
+	});
+	animImage.onload = function () {
+		animImageLoaded = true;
+		console.log(animImage.width);
+	}
+	animImage.src = "images/playerRunningSpriteSheet.png";
 }
