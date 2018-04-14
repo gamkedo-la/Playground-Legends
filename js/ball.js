@@ -18,7 +18,7 @@ var ballTrail = [];
 var ballTrailMax = 30;
 
 // impact "puff" of dust
-const impactEffectFrameCount = 6;
+const impactEffectFrameCount = 10;
 var impactFramesPending = 0;
 var impactX = 0;
 var impactY = 0;
@@ -32,9 +32,10 @@ function drawBall() {
 		canvasContext.drawImage(shadowImage, ballX - BALL_RADIUS, SHADOW_GROUND);
 	}
 
-	if (impactFramesPending > 0 &&
-		impactImageLoaded) {
-		canvasContext.drawImage(impactImage, impactX, impactY); // FIXME scale + fade out
+	if (impactFramesPending > 0 && impactImageLoaded) {
+		canvasContext.globalAlpha = (1 - (impactFramesPending / impactEffectFrameCount)) * 0.5; // 0.5 to 0
+		canvasContext.drawImage(impactImage, impactX, impactY); // FIXME scale and rotate
+		canvasContext.globalAlpha = 1;
 		impactFramesPending--;
 	}
 
