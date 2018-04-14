@@ -19,6 +19,7 @@ var ballTrailMax = 30;
 
 // impact "puff" of dust
 const impactEffectFrameCount = 30;
+const impactImageRadius = 32;
 var impactFramesPending = 0;
 var impactX = 0;
 var impactY = 0;
@@ -33,11 +34,6 @@ function drawBall() {
 		canvasContext.drawImage(shadowImage, ballX - BALL_RADIUS, SHADOW_GROUND);
 	}
 
-	if (impactFramesPending > 0 && impactImageLoaded) {
-		drawImageRotatedAlpha(canvasContext, impactImage, impactX, impactY, impactAngle, (1 - (impactFramesPending / impactEffectFrameCount)));
-		impactFramesPending--;
-	}
-
 	if (ballImageLoaded) {
 		canvasContext.drawImage(ballImage, ballX - BALL_RADIUS, ballY - BALL_RADIUS);
 
@@ -46,6 +42,12 @@ function drawBall() {
 		}
 
 	}
+
+	if (impactFramesPending > 0 && impactImageLoaded) {
+		drawImageRotatedAlpha(canvasContext, impactImage, impactX, impactY, impactAngle, (1 - (impactFramesPending / impactEffectFrameCount)));
+		impactFramesPending--;
+	}
+
 
 }
 
@@ -60,10 +62,14 @@ function trailEffect() {
 
 function impactEffect() {
 	impactFramesPending = impactEffectFrameCount;
-	impactX = ballX - BALL_RADIUS - 16;
-	impactY = ballY - BALL_RADIUS - 16;
-	impactAngle = Math.atan2(ballSpeedY, ballSpeedX);
-	// FIXME - find collision edge point extending radius by speed to hit point not ball center...
+	impactX = ballX - BALL_RADIUS;
+	impactY = ballY - BALL_RADIUS;
+	impactAngle = Math.atan2(ballSpeedY, -ballSpeedX); // fixme is this right?
+	// move to outside edge of ball in direction of it's movement
+	impactX += Math.cos(impactAngle * Math.PI / 180) * impactImageRadius;
+	impactY -= Math.sin(impactAngle * Math.PI / 180) * impactImageRadius;
+	// careful: if we bounce, THEN add effect, it's in the wrong direction
+	// might be better to just hardcode straight up when hitting the floor etc
 }
 
 function moveBall() {
@@ -78,10 +84,10 @@ function moveBall() {
 		ballSpeedY += (BALL_GRAVITY * secondsSinceLastFrame);
 	}
 	else {
+		impactEffect();
 		ballY = BALL_GROUND;
 		ballSpeedX *= BALL_MOMENTUM;
 		ballSpeedY *= BALL_BOUNCE;
-		impactEffect();
 		HitByBall.play();
 		if (ballSpeedX <= 3 && ballSpeedY <= 3) {
 			HitByBall.pause();
@@ -137,18 +143,18 @@ function ballCollisionWithPlayers(whichPlayer) {
 	var diffY = Math.abs(ballY - whichPlayer.y);
 	var closeEnough = 50; // measured in pixels
 	if (diffX < closeEnough && diffY < closeEnough) {
+		impactEffect();
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
-		impactEffect();
 		return true;
 	} // Above is for legs; next we will check head
 	diffX = Math.abs(ballX - (whichPlayer.x));
 	diffY = Math.abs(ballY - (whichPlayer.y - player1.height * 0.6));
 	closeEnough = 10; // measured in pixels
 	if (diffX < closeEnough && diffY < closeEnough) {
+		impactEffect();
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
-		impactEffect();
 		shakeScreen();
 		return true;
 	}
