@@ -102,6 +102,7 @@ function animate(timestamp) {
 					matchEnd = false
 				}
 				drawAll();
+				pgroundherogamesong.play();
 
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
@@ -116,6 +117,7 @@ function animate(timestamp) {
 					}
 				}
 			} else {
+				pgroundherogamesong.pause();
 				canvasContext.fillStyle = 'black'; // Rectangle color
 				canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
 				canvasContext.fillStyle = 'white'; // Text color
