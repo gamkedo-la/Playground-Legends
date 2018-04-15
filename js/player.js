@@ -37,7 +37,8 @@ function playerClass() {
 			canvasContext.drawImage(player2, 0-player2.width/2, 0-player2.height);
 			canvasContext.setTransform(1,0,0,1,0,0);
 		} else {
-			canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
+		//	canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
+		animRunningSprite.render(this.x-player1.width/2, this.y-player1.height);
 		}
 	}
 	this.throwAtPos= function(x,y) {
@@ -81,23 +82,29 @@ function playerClass() {
 	this.move=function() {
 		//console.log(ballTouchedFloor);
 		this.speedX *= PLAYER_MOMENTUM;
-		if(this.isAI && ballY < FLOOR_Y - 2 
+		if(this.isAI){
+			if(ballY < FLOOR_Y - 2 
 			&& ballSpeedX > 10 && ballSpeedY > 10){
-			if(Math.random() < 0.03){
-				this.speedX = PLAYER_MOVE_SPEED;
-			}
-			if(Math.random() < 0.03){
-				this.speedX = -PLAYER_MOVE_SPEED;
+				if(Math.random() < 0.03){
+					this.speedX = PLAYER_MOVE_SPEED;
+				}
+				if(Math.random() < 0.03){
+					this.speedX = -PLAYER_MOVE_SPEED;
+				}
 			}
 		}
-		else {
-			if(keyHeld_MoveLeft && !this.isAI) {
+		else{
+			if(keyHeld_MoveLeft) {
+				animRunningSprite.update();
 				this.speedX = -PLAYER_MOVE_SPEED;
 			}
-			if(keyHeld_MoveRight && !this.isAI) {
+			else if(keyHeld_MoveRight) {
+				animRunningSprite.update();
 				this.speedX = PLAYER_MOVE_SPEED;
+			}else{
+				animRunningSprite.reset();
 			}
-			if(keyHeld_Jump && this.isOnGround && !this.isAI) {
+			if(keyHeld_Jump && this.isOnGround) {
 				Jump.play();
 				this.speedY = -PLAYER_JUMP_SPEED;
 			}
@@ -229,7 +236,7 @@ function playerClass() {
   		if (this.isAI && ballSpeedX> 50 &&
   				!ballTouchedFloor && ballX < this.x) {
         if (!this.IsTryingToCatch) {
-          console.log("not trying to catch");
+          //console.log("not trying to catch");
           if (ballY < this.y - 80) {
             //console.log("moving towards middle");
             this.speedX -= PLAYER_MOVE_SPEED;
@@ -240,7 +247,7 @@ function playerClass() {
           }
         }
         else {
-          console.log("trying to catch");
+          //console.log("trying to catch");
           var distToAI = dist(this.x,this.y,ballX,ballY);
           if (this.x > ballX) {
           	this.speedX = -PLAYER_MOVE_SPEED;
@@ -252,7 +259,7 @@ function playerClass() {
             if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
 			  CatchingBall.play();
 			  p2.score++;
-              console.log("catch success");
+              //console.log("catch success");
               this.ballHeld = true;
             }
           }

@@ -18,7 +18,7 @@ var impactImageLoaded = false;
 
 var animImage = document.createElement("img");
 var animImageLoaded = false;
-var animSprite;
+var animRunningSprite;
 
 function setUpImages() {
 
@@ -62,33 +62,17 @@ function setUpImages() {
 	}
 	impactImage.src = "images/impact.png";
 
-	animSprite = sprite({
-		context: canvasContext,
-		width: 440,
-		height: 40,
-		image: animImage,
-		loop: true,
-		numberOfFrames: 10,
-		ticksPerFrame: 10,
-	});
-	animImage.onload = function () {
-		animImageLoaded = true;
-		console.log(animImage.width);
-	}
-	animImage.src = "images/coin_spritesheet.png";
-
 	animRunningSprite = sprite({
 		context: canvasContext,
-		width: 325,
+		width: 195,
 		height: 124,
 		image: animImage,
 		loop: true,
-		numberOfFrames: 10,
+		numberOfFrames: 3,
 		ticksPerFrame: 10,
 	});
 	animImage.onload = function () {
 		animImageLoaded = true;
-		console.log(animImage.width);
 	}
 	animImage.src = "images/playerRunningSpriteSheet.png";
 }

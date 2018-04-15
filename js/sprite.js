@@ -23,6 +23,11 @@ function sprite(options) {
             }
         }
     }
+	
+	that.reset = function() {
+		tickCount = 0;
+		frameIndex = 0;
+	}
 
     that.render = function(x, y) {
         that.context.drawImage(that.image,
