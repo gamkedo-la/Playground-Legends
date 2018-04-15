@@ -42,7 +42,6 @@ function mainMenuUpdate() {
 }
 
 function mainMenuDraw() {
-	DodgeMenu.play();
     // Background
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
@@ -135,8 +134,8 @@ function mainMenuChangeScreen() {
     switch (hovering) {
         case HOVER_START:
 			menuSelection.play();
-			DodgeMenu.pause();
             scene = SCENE_GAME;
+            DodgeMenu.pause();
             break;
         case HOVER_HOW:
 			menuSelection.play();

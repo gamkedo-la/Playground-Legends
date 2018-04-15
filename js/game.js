@@ -72,6 +72,7 @@ function animate(timestamp) {
 
 	switch (scene) {
 		case SCENE_MAIN_MENU: {
+			DodgeMenu.play();
 			mainMenuUpdate();
 			break;
 		}
