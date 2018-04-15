@@ -86,7 +86,7 @@ function handleClick() {
 	mouseDown = true;
 	p1.throwAtPos(mouseX,mouseY);
 	p1.catchBall();
-	console.log("Clicked");
+	//console.log("Clicked");
 }
 
 function handleClickRelease() {

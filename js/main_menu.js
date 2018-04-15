@@ -35,8 +35,6 @@ function mainMenuUpdate() {
         mainMenuHandleMouseClick();
     }
 
-    animSprite.update();
-
     mainMenuHandleMouseMove();
     mainMenuDraw();
 }
@@ -71,7 +69,7 @@ function mainMenuDraw() {
     canvasContext.font = '30px Helvetica';
     canvasContext.fillText('CREDITS', 100, 400);
 
-    animSprite.render(10, 10);
+    
 
     // Draw Colliders (DEBUG)
     /*
