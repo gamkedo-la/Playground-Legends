@@ -17,6 +17,14 @@ var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
 var ballTrail = [];
 var ballTrailMax = 30;
 
+// impact "puff" of dust
+const impactEffectFrameCount = 30;
+const impactImageRadius = 32;
+var impactFramesPending = 0;
+var impactX = 0;
+var impactY = 0;
+var impactAngle = 0;
+
 var thrownByPlayer = null;
 
 function drawBall() {
@@ -30,20 +38,38 @@ function drawBall() {
 		canvasContext.drawImage(ballImage, ballX - BALL_RADIUS, ballY - BALL_RADIUS);
 
 		if (p1.ballHeld == false && p2.ballHeld == false) {
-				trailEffect();
+			trailEffect();
 		}
 
 	}
+
+	if (impactFramesPending > 0 && impactImageLoaded) {
+		drawImageRotatedAlpha(canvasContext, impactImage, impactX, impactY, impactAngle, (1 - (impactFramesPending / impactEffectFrameCount)));
+		impactFramesPending--;
+	}
+
 
 }
 
 function trailEffect() {
 	// trail effect
-				for (var loop=0; loop<ballTrail.length; loop++) {
-					canvasContext.globalAlpha = loop/ballTrailMax/8 + 0.01; 
-					canvasContext.drawImage(ballImage, ballTrail[loop].x - BALL_RADIUS, ballTrail[loop].y - BALL_RADIUS);
-				}
-				canvasContext.globalAlpha = 1;
+	for (var loop = 0; loop < ballTrail.length; loop++) {
+		canvasContext.globalAlpha = loop / ballTrailMax / 8 + 0.01;
+		canvasContext.drawImage(ballImage, ballTrail[loop].x - BALL_RADIUS, ballTrail[loop].y - BALL_RADIUS);
+	}
+	canvasContext.globalAlpha = 1;
+}
+
+function impactEffect() {
+	impactFramesPending = impactEffectFrameCount;
+	impactX = ballX - BALL_RADIUS;
+	impactY = ballY - BALL_RADIUS;
+	impactAngle = Math.atan2(ballSpeedY, -ballSpeedX); // fixme is this right?
+	// move to outside edge of ball in direction of it's movement
+	impactX += Math.cos(impactAngle * Math.PI / 180) * impactImageRadius;
+	impactY -= Math.sin(impactAngle * Math.PI / 180) * impactImageRadius;
+	// careful: if we bounce, THEN add effect, it's in the wrong direction
+	// might be better to just hardcode straight up when hitting the floor etc
 }
 
 function moveBall() {
@@ -58,30 +84,32 @@ function moveBall() {
 		ballSpeedY += (BALL_GRAVITY * secondsSinceLastFrame);
 	}
 	else {
+		impactEffect();
 		ballY = BALL_GROUND;
 		ballSpeedX *= BALL_MOMENTUM;
 		ballSpeedY *= BALL_BOUNCE;
 		HitByBall.play();
-		if(ballSpeedX <= 3 && ballSpeedY <= 3) {
+		if (ballSpeedX <= 3 && ballSpeedY <= 3) {
 			HitByBall.pause();
 		}
 		//ballGroundHandling();
 	}
 
-       /*function ballGroundHandling() {
-                  if(ballSpeedY !== 0 && ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
-                      ballBounced = true;
-                      HitByBall.play();
-                } else {
-                ballBounced = false;
-            }
-        }*/
+	/*function ballGroundHandling() {
+			   if(ballSpeedY !== 0 && ballSpeedX !== 0) { //play sound if ball is on ground, but still in motion
+				   ballBounced = true;
+				   HitByBall.play();
+			 } else {
+			 ballBounced = false;
+		 }
+	 }*/
 
 
 
 	//This will keep the ball within the frame of the canvas horizontally
 	//also avoid getting stuck in the corner
 	if ((ballX < 0 && ballSpeedX < 0.0) || (ballX > canvas.width && ballSpeedX > 0.0)) {
+		impactEffect();
 		HitByBall.play();
 		ballOutOfBoundary = true;
 		ballSpeedX = -ballSpeedX;
@@ -91,41 +119,45 @@ function moveBall() {
 		ballTouchedFloor = false;
 	}
 	if (ballY > FLOOR_Y - 21) {
+		impactEffect();
 		ballTouchedFloor = true;
 	}
 
 	//This will keep the ball within the frame of the canvas vertically
 	if (ballY > FLOOR_Y || ballY < 0) {
+		impactEffect();
 		ballTouchedFloor = true;
 		ballSpeedY = -ballSpeedY;
 	}
 
 	// remember previous ball positions for trail effect
-	ballTrail.push({x:ballX,y:ballY}); // add a fresh new one to the end of the array
-	if (ballTrail.length>ballTrailMax) ballTrail.shift(); // delete oldest entry if array is full
+	ballTrail.push({ x: ballX, y: ballY }); // add a fresh new one to the end of the array
+	if (ballTrail.length > ballTrailMax) ballTrail.shift(); // delete oldest entry if array is full
 }
 
 function ballCollisionWithPlayers(whichPlayer) {
-	if (p1.ballHeld || p2.ballHeld || ballTouchedFloor || ballOutOfBoundary || thrownByPlayer === whichPlayer){
+	if (p1.ballHeld || p2.ballHeld || ballTouchedFloor || ballOutOfBoundary || thrownByPlayer === whichPlayer) {
 		return false;
 	}
 	var diffX = Math.abs(ballX - whichPlayer.x);
 	var diffY = Math.abs(ballY - whichPlayer.y);
 	var closeEnough = 50; // measured in pixels
 	if (diffX < closeEnough && diffY < closeEnough) {
+		impactEffect();
 		ballSpeedX = -ballSpeedX;
 		ballSpeedY = -ballSpeedY;
 		return true;
 	} // Above is for legs; next we will check head
-    diffX = Math.abs(ballX - (whichPlayer.x));
-    diffY = Math.abs(ballY - (whichPlayer.y - player1.height * 0.6));
-    closeEnough = 10; // measured in pixels
-    if (diffX < closeEnough && diffY < closeEnough) {
-        ballSpeedX = -ballSpeedX;
-        ballSpeedY = -ballSpeedY;
-        shakeScreen();
-        return true;
-    }
+	diffX = Math.abs(ballX - (whichPlayer.x));
+	diffY = Math.abs(ballY - (whichPlayer.y - player1.height * 0.6));
+	closeEnough = 10; // measured in pixels
+	if (diffX < closeEnough && diffY < closeEnough) {
+		impactEffect();
+		ballSpeedX = -ballSpeedX;
+		ballSpeedY = -ballSpeedY;
+		shakeScreen();
+		return true;
+	}
 	return false;
 }
 
