@@ -26,4 +26,25 @@ function resetAfterRound() {
 	ballY = FLOOR_Y;
 	ballSpeedX = 0;
 	ballSpeedY = 0;
+	
+	var randBackground = Math.floor(Math.random() * 5);
+	switch(randBackground) {
+		case 0:
+			background.src = "images/background2.png";
+			break;
+		case 1:
+			background.src = "images/background3.png";
+			break;
+		case 2:
+			background.src = "images/background4.png";
+			break;
+		case 3:
+			background.src = "images/backgroundclass.png";
+			break;
+		case 4:
+			background.src = "images/backgroundrocky.png";
+			break;
+		default: // Shouldn't occur
+			background.src = "images/background.png";
+	}
 }
