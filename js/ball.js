@@ -144,8 +144,18 @@ function ballCollisionWithPlayers(whichPlayer) {
 	var closeEnough = 50; // measured in pixels
 	if (diffX < closeEnough && diffY < closeEnough) {
 		impactEffect();
-		ballSpeedX = -ballSpeedX;
-		ballSpeedY = -ballSpeedY;
+		whichPlayer.recentlyThrownFrameLock = 50;
+		if (ballSpeedX < 0) {
+			ballSpeedX += (Math.abs(ballSpeedX) * 0.9);
+			ballSpeedX *= -1;
+		}
+		else {
+			ballSpeedX -= (Math.abs(ballSpeedX) * 0.9);
+			ballSpeedX *= -1;
+		}
+		ballSpeedY *= -1;
+		shakeScreen();
+		ballTouchedFloor = true;
 		return true;
 	} // Above is for legs; next we will check head
 	diffX = Math.abs(ballX - (whichPlayer.x));
@@ -153,9 +163,18 @@ function ballCollisionWithPlayers(whichPlayer) {
 	closeEnough = 10; // measured in pixels
 	if (diffX < closeEnough && diffY < closeEnough) {
 		impactEffect();
-		ballSpeedX = -ballSpeedX;
-		ballSpeedY = -ballSpeedY;
+		whichPlayer.recentlyThrownFrameLock = 50;
+		if (ballSpeedX < 0) {
+			ballSpeedX += (Math.abs(ballSpeedX) * 0.9);
+			ballSpeedX *= -1;
+		}
+		else {
+			ballSpeedX -= (Math.abs(ballSpeedX) * 0.9);
+			ballSpeedX *= -1;
+		}
+		ballSpeedY *= -1;
 		shakeScreen();
+		ballTouchedFloor = true;
 		return true;
 	}
 	return false;

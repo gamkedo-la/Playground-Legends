@@ -106,13 +106,13 @@ function animate(timestamp) {
 
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
-					if (p2.score === MAX_HITS) {
+					if (p2.score >= MAX_HITS) {
 						endTheRound()
 					}
 				}
 				if (ballCollisionWithPlayers(p2)) {
 					p1.score++; // player 2 was hit so player 1 scores
-					if (p1.score === MAX_HITS) {
+					if (p1.score >= MAX_HITS) {
 						endTheRound()
 					}
 				}

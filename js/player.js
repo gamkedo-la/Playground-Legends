@@ -1,5 +1,5 @@
 const PLAYER_MOVE_SPEED = 400; // pixels per second
-const PLAYER_JUMP_SPEED = 300; // pixels per second
+const PLAYER_JUMP_SPEED = 350; // pixels per second
 const THROW_POWER = 675;  // pixels per second
 const PLAYER_GRAVITY = 800; // pixels per second
 
@@ -259,6 +259,9 @@ function playerClass() {
             if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
 			  CatchingBall.play();
 			  p2.score++;
+			  if (p2.score >= MAX_HITS) {
+				endTheRound()
+			  }
               //console.log("catch success");
               this.ballHeld = true;
             }
