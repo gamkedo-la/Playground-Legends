@@ -27,6 +27,7 @@ const SCENE_MAIN_MENU = 1;
 const SCENE_HOW_TO = 2;
 const SCENE_GAME = 3;
 const SCENE_CREDITS = 4;
+const SCENE_PAUSE_MENU = 5;
 var scene = SCENE_MAIN_MENU;
 
 // unimplemented full screen resizing - leave at false for now
@@ -84,6 +85,11 @@ function animate(timestamp) {
 
 		case SCENE_CREDITS: {
 			creditsUpdate();
+			break;
+		}
+		
+		case SCENE_PAUSE_MENU: {
+			pauseUpdate();
 			break;
 		}
 
@@ -262,20 +268,16 @@ function drawAll() {
 	canvasContext.restore(); // Lines after this won't shake from screen shake.
 	drawRoundTimer();
 	drawBallForfeitTimer();
-	if (gamePaused) {
-		canvasContext.globalAlpha = 0.3;
-		canvasContext.fillStyle = 'black';
-		canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-		canvasContext.globalAlpha = 1;
-		canvasContext.fillStyle = 'white';
-		canvasContext.textAlign = "center";
-		canvasContext.fillText("Paused", canvas.width / 2, canvas.height / 2);
-		canvasContext.textAlign = "left";
-	}
 }
 
 function togglePauseState() {
 	gamePaused = !gamePaused;
+	if (gamePaused){
+		scene = SCENE_PAUSE_MENU;
+	}
+	else {
+		scene = SCENE_GAME;
+	}
 }
 
 function shakeScreen() {

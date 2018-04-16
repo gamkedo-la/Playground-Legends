@@ -68,6 +68,11 @@ function keyPressed(evt) {
 			creditsKeyPressed(evt.keyCode);
 			break;
 		}
+		
+		case SCENE_PAUSE_MENU: {
+			pauseKeyPressed(evt.keyCode);
+			break;
+		}
 	}
 }
 
