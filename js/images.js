@@ -20,6 +20,18 @@ var animImage = document.createElement("img");
 var animImageLoaded = false;
 var animRunningSprite;
 
+var player2RunningImage = document.createElement("img");
+var player2RunningImageLoaded = false;
+var player2RunningSprite;
+
+var player3RunningImage = document.createElement("img");
+var player3RunningImageLoaded = false;
+var player3RunningSprite;
+
+var player4RunningImage = document.createElement("img");
+var player4RunningImageLoaded = false;
+var player4RunningSprite;
+
 function setUpImages() {
 
 	player1.onload = function () {
@@ -36,7 +48,7 @@ function setUpImages() {
 		player3Loaded = true;
 	}
 	player3.src = "images/player3.png";
-	
+
 	player4.onload = function () {
 		player4Loaded = true;
 	}
@@ -75,6 +87,48 @@ function setUpImages() {
 		animImageLoaded = true;
 	}
 	animImage.src = "images/playerRunningSpriteSheet.png";
+
+	player2RunningSprite = sprite({
+		context: canvasContext,
+		width: 195,
+		height: 124,
+		image: player2RunningImage,
+		loop: true,
+		numberOfFrames: 3,
+		ticksPerFrame: 10,
+	});
+	player2RunningImage.onload = function () {
+		player2RunningImageLoaded = true;
+	}
+	player2RunningImage.src = "images/player2RunningSpriteSheet.png";
+
+	player3RunningSprite = sprite({
+		context: canvasContext,
+		width: 195,
+		height: 124,
+		image: player3RunningImage,
+		loop: true,
+		numberOfFrames: 3,
+		ticksPerFrame: 10,
+	});
+	player3RunningImage.onload = function () {
+		player3RunningImageLoaded = true;
+	}
+	player3RunningImage.src = "images/player3RunningSpriteSheet.png";
+
+	player4RunningSprite = sprite({
+		context: canvasContext,
+		width: 195,
+		height: 124,
+		image: player4RunningImage,
+		loop: true,
+		numberOfFrames: 3,
+		ticksPerFrame: 10,
+	});
+	player4RunningImage.onload = function () {
+		player4RunningImageLoaded = true;
+	}
+	player4RunningImage.src = "images/player4RunningSpriteSheet.png";
 }
 
 function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
