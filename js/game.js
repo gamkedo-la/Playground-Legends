@@ -153,6 +153,7 @@ function animate(timestamp) {
 					var roundDisplay = p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!';
 					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
 					canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
+					resetAfterMatch();
 					matchEnd = true;
 
 				}
