@@ -1,6 +1,10 @@
 var player1 = document.createElement("img");
 var player1Loaded = false;
 
+var player1ThrowingImage = document.createElement("img");
+var player1ThrowingImageLoaded = false;
+var player1ThrowingSprite;
+
 var player2 = document.createElement("img");
 var player2Loaded = false;
 
@@ -87,6 +91,20 @@ function setUpImages() {
 		animImageLoaded = true;
 	}
 	animImage.src = "images/playerRunningSpriteSheet.png";
+
+	player1ThrowingSprite = sprite({
+		context: canvasContext,
+		width: 320,
+		height: 124,
+		image: player1ThrowingImage,
+		loop: false,
+		numberOfFrames: 4,
+		ticksPerFrame: 7,
+	});
+	animImage.onload = function () {
+		player1ThrowingImageLoaded = true;
+	}
+	player1ThrowingImage.src = "images/throwingSpriteSheet.png";
 
 	player2RunningSprite = sprite({
 		context: canvasContext,

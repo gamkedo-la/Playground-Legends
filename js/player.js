@@ -27,6 +27,7 @@ function playerClass() {
 	this.ballForfeit = false;
 	this.ballHeld = false;
 	this.recentlyThrownFrameLock = 0;
+	this.throwingFrames = 0;
 
 	this.IsTryingToCatch = false;
 
@@ -39,7 +40,12 @@ function playerClass() {
 			canvasContext.setTransform(1,0,0,1,0,0);
 		} else {
 		//	canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
-		animRunningSprite.render(this.x-player1.width/2, this.y-player1.height);
+			if (p1.ballHeld == false && p1.throwingFrames > 0) {
+				player1ThrowingSprite.render(this.x-player1.width/2, this.y-player1.height);
+				player1ThrowingSprite.update();
+			} else {
+			animRunningSprite.render(this.x-player1.width/2, this.y-player1.height);
+			}
 		}
 	}
 	this.throwAtPos= function(x,y) {
@@ -47,6 +53,7 @@ function playerClass() {
 			thrownByPlayer = this;
 			this.ballHeld = false;
 			this.recentlyThrownFrameLock = 2;
+			this.throwingFrames = 30;
 			if(this.AI){
 				var velocity = THROW_POWER;
 				var angle = Math.atan(y/x);
@@ -72,7 +79,7 @@ function playerClass() {
 	}
 
 	this.catchBall= function() {
-		if(!this.ballHeld && this.recentlyThrownFrameLock == 0) {
+		if(!this.ballHeld && this.recentlyThrownFrameLock <= 0) {
 			var distToMouse = dist(this.x, this.y, mouseX, mouseY);
 			if (distToMouse <= DIST_TO_GRAB) {
 				this.ballHeld = true;
@@ -219,9 +226,15 @@ function playerClass() {
 		if(this.recentlyThrownFrameLock >= 0) {
 			this.recentlyThrownFrameLock--;
 		}
+
+		if(this.throwingFrames >= 0) {
+			this.throwingFrames--;
+		}
+
 		//Player will pick up the ball when they are within the DIST_TO_GRAB range
 		else if(dist(this.x,this.y, ballX,ballY) < DIST_TO_GRAB && this.timeLimit > 0) {
 			this.ballHeld = true;
+			player1ThrowingSprite.reset();
             if (window.catchBallSound) { // just incase the player has not loaded sounds
             	catchBallSound.play();
             }
