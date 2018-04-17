@@ -100,12 +100,10 @@ function pauseHandleMouseHover() {
 function pauseHandleMouseClick(atX) {
 	if (hovering == HOVER_MUSIC && atX != NaN) {
 		var location = (atX  - (canvas.width/2 - 110)) / 220;
-		console.log(location);
 		setMusicVolume(location);
 	}
 	if (hovering == HOVER_EFFECTS && atX != NaN) {
 		var location = (atX  - (canvas.width/2 - 110)) / 220;
-		console.log(location);
 		setEffectsVolume(location);
 	}
 }
