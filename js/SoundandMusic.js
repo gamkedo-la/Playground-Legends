@@ -106,22 +106,42 @@ function toggleMute() {
 }
 
 function setEffectsVolume(amount) {
-	effectsVolume = amount;
-	if (effectsVolume > 1.0) {
-		effectsVolume = 1.0;
-	} else if (effectsVolume < 0.0) {
-		effectsVolume = 0.0;
+	if (amount > 1.0) {
+		amount = 1.0;
+	} else if (amount < 0.0) {
+		amount = 0.0;
 	}
+	
+	countdown.volume = amount;
+	Jump.volume = amount;
+	HitByBall.volume = amount;
+	timeup.volume = amount;
+	CatchingBall.volume = amount;
+	menuSelection.volume = amount;
+	
+	effectsVolume = amount;
+	
 }
 
 function setMusicVolume(amount) {
-	musicVolume = amount;
-	if (musicVolume > 1.0) {
-		musicVolume = 1.0;
-	} else if (musicVolume < 0.0) {
-		musicVolume = 0.0;
+	if (amount > 1.0) {
+		amount = 1.0;
+	} else if (amount < 0.0) {
+		amount = 0.0;
 	}
-	currentBackgroundMusic.setVolume(musicVolume);
+	
+	DodgeMenu.volume = amount;
+	pgroundherogamesong.volume = amount;
+	
+	musicVolume = amount;
+}
+
+function getEffectsVolume(){
+	return effectsVolume;
+}
+
+function getMusicVolume(){
+	return musicVolume;
 }
 
 function turnVolumeUp() {
