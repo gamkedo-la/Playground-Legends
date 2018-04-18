@@ -5,6 +5,10 @@ var player1ThrowingImage = document.createElement("img");
 var player1ThrowingImageLoaded = false;
 var player1ThrowingSprite;
 
+var player1JumpingImage = document.createElement("img");
+var player1JumpingImageLoaded = false;
+var player1JumpingSprite;
+
 var player2 = document.createElement("img");
 var player2Loaded = false;
 
@@ -99,12 +103,26 @@ function setUpImages() {
 		image: player1ThrowingImage,
 		loop: false,
 		numberOfFrames: 4,
-		ticksPerFrame: 7,
+		ticksPerFrame: 5,
 	});
 	animImage.onload = function () {
 		player1ThrowingImageLoaded = true;
 	}
 	player1ThrowingImage.src = "images/throwingSpriteSheet.png";
+    
+    player1JumpingSprite = sprite({
+		context: canvasContext,
+		width: 300,
+		height: 124,
+		image: player1JumpingImage,
+		loop: false,
+		numberOfFrames: 3,
+		ticksPerFrame: 6,
+	});
+    animImage.onload = function () {
+		player1JumpingImageLoaded = true;
+	}
+	player1JumpingImage.src = "images/player1JumpingSpriteSheet.png";
 
 	player2RunningSprite = sprite({
 		context: canvasContext,

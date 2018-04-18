@@ -43,8 +43,13 @@ function playerClass() {
 			if (p1.ballHeld == false && p1.throwingFrames > 0) {
 				player1ThrowingSprite.render(this.x-player1.width/2, this.y-player1.height);
 				player1ThrowingSprite.update();
-			} else {
+			} else if (!p1.isOnGround && p1.y < FLOOR_Y) {
+                console.log("jump animation")
+                player1JumpingSprite.render(this.x-player1.width/2, this.y-player1.height);
+                player1JumpingSprite.update();
+            } else {
 			animRunningSprite.render(this.x-player1.width/2, this.y-player1.height);
+                player1JumpingSprite.reset();
 			}
 		}
 	}
