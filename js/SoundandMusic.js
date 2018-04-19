@@ -12,7 +12,7 @@ if (musicVolume === null) {
 	musicVolume = 1;
 }
 if (effectsVolume === null) {
-	effectsVolume = 1;
+	setEffectsVolume(1);
 }
 
 var isMuted = false;
@@ -112,12 +112,12 @@ function setEffectsVolume(amount) {
 		amount = 0.0;
 	}
 	
-	countdown.volume = amount;
+	countdown.volume = amount * .8;
 	Jump.volume = amount;
 	HitByBall.volume = amount;
-	timeup.volume = amount;
+	timeup.volume = amount * .6;
 	CatchingBall.volume = amount;
-	menuSelection.volume = amount;
+	menuSelection.volume = amount * .8;
 	
 	effectsVolume = amount;
 	
