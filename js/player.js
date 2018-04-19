@@ -284,7 +284,8 @@ function playerClass() {
             this.speedX = PLAYER_MOVE_SPEED;
           }
           if (distToAI <= 150) {
-            if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100) {
+            if (Math.floor((Math.random() * 100) + 1) > ballSpeedX/THROW_POWER*100 &&
+            	ballTouchedFloor == true) {
 			  CatchingBall.play();
 			  p2.score++;
 			  if (p2.score >= MAX_HITS) {
