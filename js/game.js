@@ -127,6 +127,8 @@ function animate(timestamp) {
 					}
 				}			
 			} else {
+				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;				
+
 				pgroundherogamesong.pause();
 				
 				betweenRoundTimer -= secondsSinceLastFrame;
@@ -135,14 +137,13 @@ function animate(timestamp) {
 					betweenRoundTimer = betweenRoundTimerReset;
 					resetAfterRound();
 					roundNumber++;
+
+					if (matchEnd) {
+						resetAfterMatch();
+					}
 				}
 				
-				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;				
 				drawScoreboard(matchEnd);
-				
-				if (matchEnd) {
-					resetAfterMatch();
-				}
 			}
 						
 			drawScores();
