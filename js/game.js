@@ -124,8 +124,9 @@ function animate(timestamp) {
 				}
 			} else {
 				pgroundherogamesong.pause();
-				canvasContext.fillStyle = 'black'; // Rectangle color
-				canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+				// canvasContext.fillStyle = 'black'; // Rectangle color
+				// canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+				canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
 				canvasContext.fillStyle = 'white'; // Text color
 				canvasContext.font = '18px Helvetica';
 				var roundDisplay = 'End of round ' + roundNumber;
@@ -146,8 +147,9 @@ function animate(timestamp) {
 					roundNumber++;
 				}
 				if (p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH) {
-					canvasContext.fillStyle = 'black'; // Rectangle color
-					canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+					//canvasContext.fillStyle = 'black'; // Rectangle color
+					//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+					canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
 					canvasContext.fillStyle = 'white'; // Text color
 					canvasContext.font = '18px Helvetica';
 					var roundDisplay = p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!';

@@ -48,6 +48,9 @@ var menuPlayers = document.createElement("img");
 var menuPlayersImageLoaded = false;
 var menuPlayersSprite;
 
+var blackboardPopUp = document.createElement("img");
+var blackboardPopUpLoaded = false;
+
 function setUpImages() {
 
 	player1.onload = function () {
@@ -183,6 +186,11 @@ function setUpImages() {
         menuPlayersImageLoaded = true;
     }
     menuPlayers.src = "images/menuPlayers.png";
+
+	blackboardPopUp.onload = function () {
+		blackboardPopUpLoaded = true;
+	}
+	blackboardPopUp.src = "images/blackboard.png";
 }
 
 function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
