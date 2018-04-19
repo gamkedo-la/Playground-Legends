@@ -124,42 +124,26 @@ function animate(timestamp) {
 				}
 			} else {
 				pgroundherogamesong.pause();
-				// canvasContext.fillStyle = 'black'; // Rectangle color
-				// canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
-				canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
-				canvasContext.fillStyle = 'white'; // Text color
-				canvasContext.font = '18px Helvetica';
-				var roundDisplay = 'End of round ' + roundNumber;
-				var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-				canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
-				var playerOneScore = p1.roundsWon;
-				var playerTwoScore = p2.roundsWon;
-				textWidth = canvasContext.measureText(Math.floor(playerOneScore));
-				canvasContext.font = '28px Helvetica';
-				canvasContext.fillText(playerOneScore, (canvas.width / 2) - textWidth.width * 2 - 50, canvas.height / 2 + 10);
-				textWidth = canvasContext.measureText(Math.floor(playerTwoScore));
-				canvasContext.fillText(playerTwoScore, (canvas.width / 2) - textWidth.width * 2 + 100, canvas.height / 2 + 10);
+				
+				drawScoreboard();
+				
 				betweenRoundTimer -= secondsSinceLastFrame;
+
 				if (betweenRoundTimer <= 0) {
 					betweenRounds = false;
 					betweenRoundTimer = betweenRoundTimerReset;
 					resetAfterRound();
 					roundNumber++;
 				}
-				if (p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH) {
-					//canvasContext.fillStyle = 'black'; // Rectangle color
-					//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
-					canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
-					canvasContext.fillStyle = 'white'; // Text color
-					canvasContext.font = '18px Helvetica';
-					var roundDisplay = p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!';
-					var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-					canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
-					resetAfterMatch();
-					matchEnd = true;
 
+				if (p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH) {
+					matchEnd = true;
+					drawScoreboard(matchEnd);
+
+					resetAfterMatch();
 				}
 			}
+
 			drawScores();
 		}
 	}
@@ -189,7 +173,6 @@ function drawRoundTimer() {
 	canvasContext.fillText(Math.floor(roundTimer), canvas.width / 2 - textWidth.width / 2 - 12, 44); // Center score text
 }
 
-
 function roundTimerCountdown() {
 	if (roundTimer > 1) {
 		roundTimer -= secondsSinceLastFrame;
@@ -208,11 +191,13 @@ function endTheRound() {
 	roundTimer = roundTimerReset;
 
 	// Check who won round and assign point
-	if (p1.score > p2.score) {
-		p1.roundsWon++;
-	}
-	else if (p2.score > p1.score) {
-		p2.roundsWon++;
+	if (!matchEnd) {
+		if (p1.score > p2.score) {
+			p1.roundsWon++;
+		}
+		else if (p2.score > p1.score) {
+			p2.roundsWon++;
+		}
 	}
 }
 
@@ -243,6 +228,33 @@ function drawScores() {
 	canvasContext.font = "40px Helvetica";
 	canvasContext.fillText(p1.score, 20, canvas.height - 20);
 	canvasContext.fillText(p2.score, canvas.width - 80, canvas.height - 20);
+}
+
+function drawScoreboard(matchEnd = false) {	
+	//canvasContext.fillStyle = 'black'; // Rectangle color
+	//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+
+	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
+	canvasContext.fillStyle = 'white'; // Text color
+	canvasContext.font = '18px Helvetica';		
+	
+	var roundDisplay = matchEnd ? (p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!') : 'End of round ' + roundNumber;	
+	var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
+	
+	canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
+
+	if (!matchEnd) {
+		var playerOneScore = p1.roundsWon;
+		var playerTwoScore = p2.roundsWon;
+
+		textWidth = canvasContext.measureText(Math.floor(playerOneScore));
+
+		canvasContext.font = '28px Helvetica';
+		canvasContext.fillText(playerOneScore, (canvas.width / 2) - textWidth.width * 2 - 50, canvas.height / 2 + 10);
+
+		textWidth = canvasContext.measureText(Math.floor(playerTwoScore));
+		canvasContext.fillText(playerTwoScore, (canvas.width / 2) - textWidth.width * 2 + 100, canvas.height / 2 + 10);
+	}
 }
 
 function drawAimer() {
