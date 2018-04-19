@@ -191,11 +191,13 @@ function endTheRound() {
 	roundTimer = roundTimerReset;
 
 	// Check who won round and assign point
-	if (p1.score > p2.score) {
-		p1.roundsWon++;
-	}
-	else if (p2.score > p1.score) {
-		p2.roundsWon++;
+	if (!matchEnd) {
+		if (p1.score > p2.score) {
+			p1.roundsWon++;
+		}
+		else if (p2.score > p1.score) {
+			p2.roundsWon++;
+		}
 	}
 }
 
@@ -231,6 +233,7 @@ function drawScores() {
 function drawScoreboard(matchEnd = false) {	
 	//canvasContext.fillStyle = 'black'; // Rectangle color
 	//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+
 	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
 	canvasContext.fillStyle = 'white'; // Text color
 	canvasContext.font = '18px Helvetica';		
