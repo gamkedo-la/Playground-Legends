@@ -44,12 +44,15 @@ function mainMenuDraw() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Logo
+    canvasContext.drawImage(menuLogo, (canvas.width / 2) - (menuLogo.width / 2), 25);
+
     // Title
-    canvasContext.fillStyle = 'white';
-    canvasContext.font = '50px Helvetica';
-    var title = 'Playground Legends';
-    var titleMeasure = canvasContext.measureText(Math.floor(title));
-    canvasContext.fillText(title, (canvas.width / 2) - (titleMeasure.width * 2) - 20, 100);
+    //canvasContext.fillStyle = 'white';
+    //canvasContext.font = '50px Helvetica';
+    //var title = 'Playground Legends';
+    //var titleMeasure = canvasContext.measureText(Math.floor(title));
+    //canvasContext.fillText(title, (canvas.width / 2) - (titleMeasure.width * 2) - 20, 100);
 
     // Start game
     canvasContext.fillStyle = 'white';
@@ -68,6 +71,9 @@ function mainMenuDraw() {
     if (hovering == HOVER_CREDITS) canvasContext.fillStyle = 'yellow';
     canvasContext.font = '30px Helvetica';
     canvasContext.fillText('CREDITS', 100, 400);
+
+    // Players
+    canvasContext.drawImage(menuPlayers, 240, 280, 548,320);
 
     
 

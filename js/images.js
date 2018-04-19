@@ -40,6 +40,14 @@ var player4RunningImage = document.createElement("img");
 var player4RunningImageLoaded = false;
 var player4RunningSprite;
 
+var menuLogo = document.createElement("img");
+var menuLogoImageLoaded = false;
+var menuLogoSprite;
+
+var menuPlayers = document.createElement("img");
+var menuPlayersImageLoaded = false;
+var menuPlayersSprite;
+
 function setUpImages() {
 
 	player1.onload = function () {
@@ -165,6 +173,16 @@ function setUpImages() {
 		player4RunningImageLoaded = true;
 	}
 	player4RunningImage.src = "images/player4RunningSpriteSheet.png";
+
+    menuLogo.onload = function () {
+        menuLogoImageLoaded = true;
+    }
+    menuLogo.src = "images/menuLogo.png";
+
+    menuPlayers.onload = function () {
+        menuPlayersImageLoaded = true;
+    }
+    menuPlayers.src = "images/menuPlayers.png";
 }
 
 function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
