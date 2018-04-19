@@ -109,7 +109,7 @@ function animate(timestamp) {
 				}
 				drawAll();
 				pgroundherogamesong.play();
-
+				
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
 					if (p2.score >= MAX_HITS) {
@@ -121,14 +121,11 @@ function animate(timestamp) {
 					if (p1.score >= MAX_HITS) {
 						endTheRound()
 					}
-				}
+				}			
 			} else {
 				pgroundherogamesong.pause();
 				
-				drawScoreboard();
-				
 				betweenRoundTimer -= secondsSinceLastFrame;
-
 				if (betweenRoundTimer <= 0) {
 					betweenRounds = false;
 					betweenRoundTimer = betweenRoundTimerReset;
@@ -136,14 +133,14 @@ function animate(timestamp) {
 					roundNumber++;
 				}
 
-				if (p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH) {
-					matchEnd = true;
-					drawScoreboard(matchEnd);
+				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;					
+				drawScoreboard(matchEnd);
 
+				if (matchEnd) {
 					resetAfterMatch();
 				}
 			}
-
+			
 			drawScores();
 		}
 	}
@@ -191,13 +188,11 @@ function endTheRound() {
 	roundTimer = roundTimerReset;
 
 	// Check who won round and assign point
-	if (!matchEnd) {
-		if (p1.score > p2.score) {
-			p1.roundsWon++;
-		}
-		else if (p2.score > p1.score) {
-			p2.roundsWon++;
-		}
+	if (p1.score > p2.score) {
+		p1.roundsWon++;
+	}
+	else if (p2.score > p1.score) {
+		p2.roundsWon++;
 	}
 }
 
@@ -233,8 +228,14 @@ function drawScores() {
 function drawScoreboard(matchEnd = false) {	
 	//canvasContext.fillStyle = 'black'; // Rectangle color
 	//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
+	
+	// canvasContext.globalAlpha = 0.3;
+	// canvasContext.fillStyle = 'black';
+	// canvasContext.fillRect(0,0,canvas.width,canvas.height);
 
+	canvasContext.globalAlpha = 1.0;	
 	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
+	
 	canvasContext.fillStyle = 'white'; // Text color
 	canvasContext.font = '18px Helvetica';		
 	
