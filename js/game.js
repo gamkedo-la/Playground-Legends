@@ -94,20 +94,24 @@ function animate(timestamp) {
 		}
 
 		default: {
+			drawAll();
+
 			if (betweenRounds == false) {
+
 				if (gamePaused == false) {
 					roundTimerCountdown();
 					p1.move();
 					p2.move();
 					moveBall();
 				}
+
 				if (matchEnd) {
 					p1.roundsWon = 0;
 					p2.roundsWon = 0;
 					roundNumber = 1;
 					matchEnd = false
 				}
-				drawAll();
+
 				pgroundherogamesong.play();
 				
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
@@ -132,15 +136,15 @@ function animate(timestamp) {
 					resetAfterRound();
 					roundNumber++;
 				}
-
-				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;					
+				
+				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;				
 				drawScoreboard(matchEnd);
-
+				
 				if (matchEnd) {
 					resetAfterMatch();
 				}
 			}
-			
+						
 			drawScores();
 		}
 	}
@@ -229,9 +233,9 @@ function drawScoreboard(matchEnd = false) {
 	//canvasContext.fillStyle = 'black'; // Rectangle color
 	//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
 	
-	// canvasContext.globalAlpha = 0.3;
-	// canvasContext.fillStyle = 'black';
-	// canvasContext.fillRect(0,0,canvas.width,canvas.height);
+	canvasContext.globalAlpha = 0.3;
+	canvasContext.fillStyle = 'black';
+	canvasContext.fillRect(0,0,canvas.width,canvas.height);
 
 	canvasContext.globalAlpha = 1.0;	
 	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
