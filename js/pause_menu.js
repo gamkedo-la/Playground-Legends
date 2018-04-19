@@ -45,7 +45,9 @@ function pauseUpdate() {
 }
 
 function pauseDraw() {
-	
+	drawAll();
+	drawAlphaLayer();
+
 	// Background
 	canvasContext.globalAlpha = 0.3;
 	canvasContext.fillStyle = 'black';

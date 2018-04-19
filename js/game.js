@@ -230,14 +230,8 @@ function drawScores() {
 }
 
 function drawScoreboard(matchEnd = false) {	
-	//canvasContext.fillStyle = 'black'; // Rectangle color
-	//canvasContext.fillRect((canvas.width / 2) - 150, (canvas.height / 2) - 75, 300, 150);
-	
-	canvasContext.globalAlpha = 0.3;
-	canvasContext.fillStyle = 'black';
-	canvasContext.fillRect(0,0,canvas.width,canvas.height);
+	drawAlphaLayer();
 
-	canvasContext.globalAlpha = 1.0;	
 	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
 	
 	canvasContext.fillStyle = 'white'; // Text color
@@ -266,6 +260,13 @@ function drawAimer() {
 	if (p1.ballHeld) {
 		canvasContext.drawImage(aimerImage, mouseX - 20, mouseY - 20);
 	}
+}
+
+function drawAlphaLayer() {
+	canvasContext.globalAlpha = 0.3;
+	canvasContext.fillStyle = 'black';
+	canvasContext.fillRect(0,0,canvas.width,canvas.height);
+	canvasContext.globalAlpha = 1.0;
 }
 
 function drawAll() {
