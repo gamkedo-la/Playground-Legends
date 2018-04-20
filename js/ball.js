@@ -8,6 +8,8 @@ const SHADOW_GROUND = FLOOR_Y - 15;
 var ballSpeedX = 0; // pixels per second
 var ballSpeedY = 0; // pixels per second
 
+const BALL_SPEED_MAX = 800; // ensure reasonable speeds
+
 var ballX = 100;
 var ballY = FLOOR_Y;
 var ballTouchedFloor;
@@ -75,6 +77,12 @@ function impactEffect() {
 function moveBall() {
 
 	//console.log('moveball pos:'+ballX+','+ballY+' spd:'+ballSpeedX+','+ballSpeedY+' dt:'+secondsSinceLastFrame);
+
+	// bugfix: sometimes the AI throws impossibly hard
+	if (ballSpeedX > BALL_SPEED_MAX) ballSpeedX = BALL_SPEED_MAX;
+	if (ballSpeedX < -BALL_SPEED_MAX) ballSpeedX = -BALL_SPEED_MAX;
+	if (ballSpeedY > BALL_SPEED_MAX) ballSpeedY = BALL_SPEED_MAX;
+	if (ballSpeedY < -BALL_SPEED_MAX) ballSpeedY = -BALL_SPEED_MAX;
 
 	//Allows the ball to move anywhere on screen and at a constant speed
 	//regardless of framerate
