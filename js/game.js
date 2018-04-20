@@ -1,5 +1,6 @@
 var canvas;
 var canvasContext;
+
 var p1 = new playerClass();
 var p2 = new playerClass();
 
@@ -21,7 +22,6 @@ const MAX_HITS = 2;
 
 var gamePaused = false;
 var shakeAmt = 0.0;
-var background;
 
 const SCENE_MAIN_MENU = 1;
 const SCENE_HOW_TO = 2;
@@ -38,23 +38,23 @@ const SHAKE_PIXELS = 15;
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-	background = document.getElementById("background");
-
+	
 	resizeCanvas();
-
+	
 	/*
-		var framesPerSecond = 30;
-		setInterval(function () {
-			drawAll();
-			moveBall();
-			p1.move();
-			p2.move();
-		},
-			1000 / framesPerSecond);
+	var framesPerSecond = 30;
+	setInterval(function () {
+		drawAll();
+		moveBall();
+		p1.move();
+		p2.move();
+	},
+	1000 / framesPerSecond);
 	*/
-
+	
 	setUpInput();
 	setUpImages();
+	
 	p2.x = 650;
 	p2.isAI = true;
 
@@ -309,9 +309,8 @@ function drawAll() {
 	shakeAmt *= SHAKE_DECAY;
 	canvasContext.save();
 	canvasContext.translate((Math.random() - 0.5) * shakeAmt, (Math.random() - 0.5) * shakeAmt);
-
+	
 	canvasContext.clearRect(0, 0, canvas.width, canvas.height); // make canvas transparent
-	//canvasContext.drawImage(background, 0, 0); // the background is the div underneath 
 
 	if (player1Loaded) {
 		p1.draw();
