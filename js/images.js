@@ -42,11 +42,9 @@ var player4RunningSprite;
 
 var menuLogo = document.createElement("img");
 var menuLogoImageLoaded = false;
-var menuLogoSprite;
 
 var menuPlayers = document.createElement("img");
 var menuPlayersImageLoaded = false;
-var menuPlayersSprite;
 
 var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
@@ -203,3 +201,4 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
 	canvasContext.restore();
 }
+

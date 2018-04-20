@@ -2,6 +2,10 @@ const HOVER_NONE = 0;
 const HOVER_START = 1;
 const HOVER_HOW = 2;
 const HOVER_CREDITS = 3;
+const PLAYERS_X = 240;
+const PLAYERS_Y = 280;
+const PLAYERS_DRAW_WIDTH = 548;
+const PLAYERS_DRAW_HEIGHT = 320;
 
 var startCollider = {
     x: 70,
@@ -73,7 +77,13 @@ function mainMenuDraw() {
     canvasContext.fillText('CREDITS', 100, 400);
 
     // Players
-    canvasContext.drawImage(menuPlayers, 240, 280, 548,320);
+    // flip image
+    canvasContext.translate(PLAYERS_X + PLAYERS_DRAW_WIDTH, PLAYERS_Y);
+    canvasContext.scale(-1,1);
+    // draw image
+    canvasContext.drawImage(menuPlayers, 0,0, PLAYERS_DRAW_WIDTH,PLAYERS_DRAW_HEIGHT);
+    // reset transformations
+    canvasContext.setTransform(1,0,0,1,0,0);
 
     
 
