@@ -96,7 +96,7 @@ function animate(timestamp) {
             else{
                 menuBG_overlay_X += menuBG_overlay_X_Speed;
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
-                console.log("overlay incremented");
+                
                 break;
 			}			
 		}
@@ -124,7 +124,7 @@ function animate(timestamp) {
             else{
                 menuBG_overlay_X += menuBG_overlay_X_Speed;
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
-                console.log("overlay incremented");
+
                 break;
             }
 		}
@@ -152,7 +152,7 @@ function animate(timestamp) {
             else{
                 menuBG_overlay_X += menuBG_overlay_X_Speed;
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
-                console.log("overlay incremented");
+
                 break;
             }
 		}
