@@ -259,7 +259,7 @@ function drawScoreboard(matchEnd = false) {
 
 function drawAimer() {
 	if (p1.ballHeld) {
-		canvasContext.drawImage(aimerImage, mouseX - 20, mouseY - 20);
+		canvasContext.drawImage(aimerImage, mouseX - 24, mouseY - 24);
 	}
 }
 
