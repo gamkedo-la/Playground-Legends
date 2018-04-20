@@ -269,6 +269,6 @@ function randomizeBackground() {
 			backgroundImage.src = "images/background.png";
 	}
 	
-	backgroundImage.style = 'position:absolute; z-index:-999;';
+	backgroundImage.style = 'height: 100vh;position:absolute; z-index:-999;';
 	document.body.insertBefore(backgroundImage, gameCanvas);
 }
