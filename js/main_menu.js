@@ -72,19 +72,19 @@ function mainMenuDraw() {
 
     // Start game
     canvasContext.fillStyle = 'black';
-    if (hovering == HOVER_START) canvasContext.fillStyle = 'yellow';
+    if (hovering == HOVER_START) canvasContext.fillStyle = 'red';
     canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText(MENUTEXT_STARTGAME, 100, 300);
 
     // How to play
     canvasContext.fillStyle = 'black';
-    if (hovering == HOVER_HOW) canvasContext.fillStyle = 'yellow';
+    if (hovering == HOVER_HOW) canvasContext.fillStyle = 'red';
     canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText(MENUTEXT_HOWTOPLAY, 100, 350);
 
     // Credits
     canvasContext.fillStyle = 'black';
-    if (hovering == HOVER_CREDITS) canvasContext.fillStyle = 'yellow';
+    if (hovering == HOVER_CREDITS) canvasContext.fillStyle = 'red';
     canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText(MENUTEXT_CREDITS, 100, 400);
 

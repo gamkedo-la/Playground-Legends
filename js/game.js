@@ -75,6 +75,7 @@ function animate(timestamp) {
 		case SCENE_MAIN_MENU: {
 			DodgeMenu.play();
 			mainMenuUpdate();
+			//animate menuBG
             if (menuBG_Y <= -600){
             	console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
@@ -90,11 +91,35 @@ function animate(timestamp) {
 
 		case SCENE_HOW_TO: {
 			howToPlayUpdate();
+            //animate menuBG
+            if (menuBG_Y <= -600){
+                console.log(menuBG_X + "," + menuBG_Y);
+                menuBG_X = 0;
+                menuBG_Y = 0;
+                break;
+            }
+            else{
+                menuBG_X -= menuBG_X_Speed;
+                menuBG_Y -= menuBG_Y_Speed;
+                break;
+            }
 			break;
 		}
 
 		case SCENE_CREDITS: {
 			creditsUpdate();
+            //animate menuBG
+            if (menuBG_Y <= -600){
+                console.log(menuBG_X + "," + menuBG_Y);
+                menuBG_X = 0;
+                menuBG_Y = 0;
+                break;
+            }
+            else{
+                menuBG_X -= menuBG_X_Speed;
+                menuBG_Y -= menuBG_Y_Speed;
+                break;
+            }
 			break;
 		}
 

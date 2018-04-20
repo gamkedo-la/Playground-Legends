@@ -17,24 +17,32 @@ function creditsDraw() {
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
+    // menuBG
+    canvasContext.drawImage(menuBG_credits, menuBG_X,menuBG_Y);
+
+    // Logo
+    canvasContext.globalAlpha = 0.25;
+    canvasContext.drawImage(menuLogo, (canvas.width / 2) - (menuLogo.width / 2), 25);
+    canvasContext.globalAlpha = 1;
+
     // Title
-    canvasContext.fillStyle = 'white';
-    canvasContext.font = '50px Helvetica';
-    var title = 'Playground Legends';
-    var titleMeasure = canvasContext.measureText(Math.floor(title));
-    canvasContext.fillText(title, (canvas.width / 2) - (titleMeasure.width * 2) - 20, 100);
+    //canvasContext.fillStyle = 'white';
+    //canvasContext.font = '50px Helvetica';
+    //var title = 'Playground Legends';
+    //var titleMeasure = canvasContext.measureText(Math.floor(title));
+    //canvasContext.fillText(title, (canvas.width / 2) - (titleMeasure.width * 2) - 20, 100);
 
     // Sub-Title
-    canvasContext.fillStyle = 'white';
-    canvasContext.font = '40px Helvetica';
+    canvasContext.fillStyle = 'black';
+    canvasContext.font = 'bold 40px Helvetica';
     var subTitle = 'Credits';
     var subTitleMeasure = canvasContext.measureText(Math.floor(subTitle));
     canvasContext.fillText(subTitle, 350, 150);
 
     // Back
-    canvasContext.fillStyle = 'white';
-    if (hovering == HOVER_BACK) canvasContext.fillStyle = 'yellow';
-    canvasContext.font = '30px Helvetica';
+    canvasContext.fillStyle = 'black';
+    if (hovering == HOVER_BACK) canvasContext.fillStyle = 'red';
+    canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText('BACK', 650, 550);
 
     // Draw Colliders (DEBUG)

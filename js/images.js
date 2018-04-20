@@ -49,6 +49,12 @@ var menuPlayersImageLoaded = false;
 var menuBG = document.createElement("img");
 var menuBGImageLoaded = false;
 
+var menuBG_how2 = document.createElement("img");
+var menuBG_how2ImageLoaded = false;
+
+var menuBG_credits = document.createElement("img");
+var menuBG_creditsImageLoaded = false;
+
 var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
 
@@ -193,7 +199,18 @@ function setUpImages() {
     }
     menuBG.src = "images/menuBG.png";
 
-	blackboardPopUp.onload = function () {
+    menuBG_how2.onload = function () {
+        menuBG_how2ImageLoaded = true;
+    }
+    menuBG_how2.src = "images/menuBG_how2.png";
+
+    menuBG_credits.onload = function () {
+        menuBG_creditsImageLoaded = true;
+    }
+    menuBG_credits.src = "images/menuBG_credits.png";
+
+
+    blackboardPopUp.onload = function () {
 		blackboardPopUpLoaded = true;
 	}
 	blackboardPopUp.src = "images/blackboard.png";
