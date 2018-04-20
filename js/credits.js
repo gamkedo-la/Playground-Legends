@@ -20,6 +20,7 @@ function creditsDraw() {
 
     // menuBG
     canvasContext.drawImage(menuBG_credits, menuBG_X,menuBG_Y);
+    canvasContext.drawImage(menuBG_creditsoverlay, menuBG_overlay_X,menuBG_overlay_Y);
 
     // Logo
     canvasContext.globalAlpha = 0.25;

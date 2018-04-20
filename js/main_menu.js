@@ -14,6 +14,10 @@ var menuBG_X = 0;
 var menuBG_Y = 0;
 var menuBG_X_Speed = .2;
 var menuBG_Y_Speed = .15;
+var menuBG_overlay_X = -800;
+var menuBG_overlay_Y = -600;
+var menuBG_overlay_X_Speed = .4;
+var menuBG_overlay_Y_Speed = .3;
 
 var startCollider = {
     x: 70,
@@ -60,6 +64,7 @@ function mainMenuDraw() {
 
     // MenuBG
     canvasContext.drawImage(menuBG, menuBG_X,menuBG_Y);
+    canvasContext.drawImage(menuBG_overlay, menuBG_overlay_X,menuBG_overlay_Y);
 
     // Logo
     canvasContext.drawImage(menuLogo, (canvas.width / 2) - (menuLogo.width / 2), 25);

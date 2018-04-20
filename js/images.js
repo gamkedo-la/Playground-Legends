@@ -58,6 +58,15 @@ var menuBG_how2ImageLoaded = false;
 var menuBG_credits = document.createElement("img");
 var menuBG_creditsImageLoaded = false;
 
+var menuBG_overlay = document.createElement("img");
+var menuBG_overlayImageLoaded = false;
+
+var menuBG_how2overlay = document.createElement("img");
+var menuBG_how2overlayImageLoaded = false;
+
+var menuBG_creditsoverlay = document.createElement("img");
+var menuBG_creditsoverlayImageLoaded = false;
+
 var how2_p1 = document.createElement("img");
 var how2_p1ImageLoaded = false;
 
@@ -218,6 +227,21 @@ function setUpImages() {
         menuBG_creditsImageLoaded = true;
     }
     menuBG_credits.src = "images/menuBG_credits.png";
+
+    menuBG_overlay.onload = function () {
+        menuBG_overlayImageLoaded = true;
+    }
+    menuBG_overlay.src = "images/menuBG_overlay.png";
+
+    menuBG_how2overlay.onload = function () {
+        menuBG_how2overlayImageLoaded = true;
+    }
+    menuBG_how2overlay.src = "images/menuBG_how2overlay.png";
+
+    menuBG_creditsoverlay.onload = function () {
+        menuBG_creditsoverlayImageLoaded = true;
+    }
+    menuBG_creditsoverlay.src = "images/menuBG_creditsoverlay.png";
 
     how2_p1.onload = function () {
         how2_p1ImageLoaded = true;

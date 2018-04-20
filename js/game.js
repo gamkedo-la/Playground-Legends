@@ -77,14 +77,24 @@ function animate(timestamp) {
 			mainMenuUpdate();
 			//animate menuBG
             if (menuBG_Y <= -600){
-            	console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                break;
+                //break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
+                //break;
+            }
+            if (menuBG_overlay_Y >= 0){
+                menuBG_overlay_X = -800;
+                menuBG_overlay_Y = -600;
+                break;
+            }
+            else{
+                menuBG_overlay_X += menuBG_overlay_X_Speed;
+                menuBG_overlay_Y += menuBG_overlay_Y_Speed;
+                console.log("overlay incremented");
                 break;
             }
 		}
@@ -96,14 +106,24 @@ function animate(timestamp) {
                 console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                break;
+                //break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
+                //break;
+            }
+            if (menuBG_overlay_Y >= 0){
+                menuBG_overlay_X = -800;
+                menuBG_overlay_Y = -600;
                 break;
             }
-			break;
+            else{
+                menuBG_overlay_X += menuBG_overlay_X_Speed;
+                menuBG_overlay_Y += menuBG_overlay_Y_Speed;
+                console.log("overlay incremented");
+                break;
+            }
 		}
 
 		case SCENE_CREDITS: {
@@ -113,14 +133,24 @@ function animate(timestamp) {
                 console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                break;
+                //break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
+                //break;
+            }
+            if (menuBG_overlay_Y >= 0){
+                menuBG_overlay_X = -800;
+                menuBG_overlay_Y = -600;
                 break;
             }
-			break;
+            else{
+                menuBG_overlay_X += menuBG_overlay_X_Speed;
+                menuBG_overlay_Y += menuBG_overlay_Y_Speed;
+                console.log("overlay incremented");
+                break;
+            }
 		}
 
 		case SCENE_PAUSE_MENU: {
