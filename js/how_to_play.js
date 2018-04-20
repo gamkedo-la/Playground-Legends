@@ -54,6 +54,10 @@ function howToPlayDraw() {
     canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText('BACK', 650, 550);
 
+    // P1
+    canvasContext.globalAlpha = 0.25;
+    canvasContext.drawImage(how2_p1, PLAYERS_X,PLAYERS_Y, SINGLE_PLAYER_WIDTH,PLAYERS_DRAW_HEIGHT);
+    canvasContext.globalAlpha = 1;
     // Draw Colliders (DEBUG)
     /*
     canvasContext.strokeStyle="yellow";

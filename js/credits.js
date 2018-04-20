@@ -1,3 +1,4 @@
+const P2_DRAW_OFFSET = 32;
 var hovering = HOVER_NONE;
 var lastMouseX = mouseX;
 var lastMouseY = mouseY;
@@ -39,11 +40,17 @@ function creditsDraw() {
     var subTitleMeasure = canvasContext.measureText(Math.floor(subTitle));
     canvasContext.fillText(subTitle, 350, 150);
 
+    // P2
+    canvasContext.globalAlpha = 0.25;
+    canvasContext.drawImage(credits_p2, PLAYERS_X + (PLAYERS_DRAW_WIDTH / 2) - P2_DRAW_OFFSET,PLAYERS_Y, SINGLE_PLAYER_WIDTH,PLAYERS_DRAW_HEIGHT);
+    canvasContext.globalAlpha = 1;
+
     // Back
     canvasContext.fillStyle = 'black';
     if (hovering == HOVER_BACK) canvasContext.fillStyle = 'red';
     canvasContext.font = 'bold 30px Helvetica';
     canvasContext.fillText('BACK', 650, 550);
+
 
     // Draw Colliders (DEBUG)
     /*

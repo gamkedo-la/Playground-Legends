@@ -58,6 +58,12 @@ var menuBG_how2ImageLoaded = false;
 var menuBG_credits = document.createElement("img");
 var menuBG_creditsImageLoaded = false;
 
+var how2_p1 = document.createElement("img");
+var how2_p1ImageLoaded = false;
+
+var credits_p2 = document.createElement("img");
+var credits_p2ImageLoaded = false;
+
 var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
 
@@ -212,6 +218,16 @@ function setUpImages() {
         menuBG_creditsImageLoaded = true;
     }
     menuBG_credits.src = "images/menuBG_credits.png";
+
+    how2_p1.onload = function () {
+        how2_p1ImageLoaded = true;
+    }
+    how2_p1.src = "images/how2_p1.png";
+
+    credits_p2.onload = function () {
+        credits_p2ImageLoaded = true;
+    }
+    credits_p2.src = "images/credits_p2.png";
 
 
     blackboardPopUp.onload = function () {
