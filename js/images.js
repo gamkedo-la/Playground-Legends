@@ -1,3 +1,6 @@
+var backgroundImage = document.createElement("img");
+backgroundImage.id = "background";
+
 var player1 = document.createElement("img");
 var player1Loaded = false;
 
@@ -50,6 +53,7 @@ var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
 
 function setUpImages() {
+	randomizeBackground();
 
 	player1.onload = function () {
 		player1Loaded = true;
@@ -202,3 +206,28 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	canvasContext.restore();
 }
 
+function randomizeBackground() {
+	var randBackground = Math.floor(Math.random() * 5);
+	switch (randBackground) {
+		case 0:
+			backgroundImage.src = "images/background2.png";
+			break;
+		case 1:
+			backgroundImage.src = "images/background3.png";
+			break;
+		case 2:
+			backgroundImage.src = "images/background4.png";
+			break;
+		case 3:
+			backgroundImage.src = "images/backgroundclass.gif";
+			break;
+		case 4:
+			backgroundImage.src = "images/backgroundrocky.png";
+			break;
+		default: // Shouldn't occur
+			backgroundImage.src = "images/background.png";
+	}
+	
+	backgroundImage.style = 'position:absolute; z-index:-999;';
+	document.body.insertBefore(backgroundImage, gameCanvas);
+}
