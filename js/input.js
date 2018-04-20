@@ -81,10 +81,10 @@ function keyReleased(evt) {
 }
 
 function calculateMousePos(evt){
-	var rect = canvas.getBoundingClientRect();
-	var root = document.documentElement;
-	mouseX = evt.clientX - rect.left - root.scrollLeft;
-	mouseY = evt.clientY - rect.left - root.scrollTop;
+	mouseX = evt.clientX - canvasContext.canvas.offsetLeft;
+	mouseX *= canvas.width / canvas.clientWidth;
+	mouseY = evt.clientY - canvasContext.canvas.offsetTop;
+	mouseY *= canvas.height / canvas.clientHeight;
 }
 
 function handleClick() {
