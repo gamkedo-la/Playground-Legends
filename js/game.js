@@ -87,7 +87,7 @@ function animate(timestamp) {
 			creditsUpdate();
 			break;
 		}
-		
+
 		case SCENE_PAUSE_MENU: {
 			pauseUpdate();
 			break;
@@ -113,7 +113,7 @@ function animate(timestamp) {
 				}
 
 				pgroundherogamesong.play();
-				
+
 				if (ballCollisionWithPlayers(p1)) { // returns 1 if hit, 0 if not
 					p2.score++; // player 1 was hit so player 2 scores
 					if (p2.score >= MAX_HITS) {
@@ -125,12 +125,12 @@ function animate(timestamp) {
 					if (p1.score >= MAX_HITS) {
 						endTheRound()
 					}
-				}			
+				}
 			} else {
-				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;				
+				matchEnd = p1.roundsWon === SCORE_TO_WIN_MATCH || p2.roundsWon === SCORE_TO_WIN_MATCH;
 
 				pgroundherogamesong.pause();
-				
+
 				betweenRoundTimer -= secondsSinceLastFrame;
 				if (betweenRoundTimer <= 0) {
 					betweenRounds = false;
@@ -142,10 +142,10 @@ function animate(timestamp) {
 						resetAfterMatch();
 					}
 				}
-				
+
 				drawScoreboard(matchEnd);
 			}
-						
+
 			drawScores();
 		}
 	}
@@ -230,17 +230,17 @@ function drawScores() {
 	canvasContext.fillText(p2.score, canvas.width - 80, canvas.height - 20);
 }
 
-function drawScoreboard(matchEnd = false) {	
+function drawScoreboard(matchEnd = false) {
 	drawAlphaLayer();
 
 	canvasContext.drawImage(blackboardPopUp, (canvas.width / 2) - 150, (canvas.height / 2) - 75);
-	
+
 	canvasContext.fillStyle = 'white'; // Text color
-	canvasContext.font = '18px Helvetica';		
-	
-	var roundDisplay = matchEnd ? (p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!') : 'End of round ' + roundNumber;	
+	canvasContext.font = '18px Helvetica';
+
+	var roundDisplay = matchEnd ? (p1.roundsWon > p2.roundsWon ? 'You Win!' : 'You Lose!') : 'End of round ' + roundNumber;
 	var textWidth = canvasContext.measureText(Math.floor(roundDisplay));
-	
+
 	canvasContext.fillText(roundDisplay, (canvas.width / 2) - textWidth.width * 2 + 10, canvas.height / 2 - 40);
 
 	if (!matchEnd) {
@@ -266,7 +266,7 @@ function drawAimer() {
 function drawAlphaLayer() {
 	canvasContext.globalAlpha = 0.3;
 	canvasContext.fillStyle = 'black';
-	canvasContext.fillRect(0,0,canvas.width,canvas.height);
+	canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 	canvasContext.globalAlpha = 1.0;
 }
 
@@ -274,7 +274,9 @@ function drawAll() {
 	shakeAmt *= SHAKE_DECAY;
 	canvasContext.save();
 	canvasContext.translate((Math.random() - 0.5) * shakeAmt, (Math.random() - 0.5) * shakeAmt);
-	canvasContext.drawImage(background, 0, 0);
+
+	canvasContext.clearRect(0, 0, canvas.width, canvas.height); // make canvas transparent
+	//canvasContext.drawImage(background, 0, 0); // the background is the div underneath 
 
 	if (player1Loaded) {
 		p1.draw();
@@ -294,7 +296,7 @@ function drawAll() {
 
 function togglePauseState() {
 	gamePaused = !gamePaused;
-	if (gamePaused){
+	if (gamePaused) {
 		scene = SCENE_PAUSE_MENU;
 	}
 	else {

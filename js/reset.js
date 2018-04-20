@@ -9,7 +9,7 @@ function resetAfterRound() {
 	p1.ballHeld = false;
 	p1.recentlyThrownFrameLock = 0;
 	p1.score = 0;
-	
+
 	p2.x = 650;
 	p2.y = FLOOR_Y;
 	p2.speedX = 0;
@@ -26,7 +26,7 @@ function resetAfterRound() {
 	ballY = FLOOR_Y;
 	ballSpeedX = 0;
 	ballSpeedY = 0;
-	
+
 }
 
 function resetAfterMatch() {
@@ -40,7 +40,7 @@ function resetAfterMatch() {
 	p1.ballHeld = false;
 	p1.recentlyThrownFrameLock = 0;
 	p1.score = 0;
-	
+
 	p2.x = 650;
 	p2.y = FLOOR_Y;
 	p2.speedX = 0;
@@ -57,9 +57,9 @@ function resetAfterMatch() {
 	ballY = FLOOR_Y;
 	ballSpeedX = 0;
 	ballSpeedY = 0;
-	
+
 	var randBackground = Math.floor(Math.random() * 5);
-	switch(randBackground) {
+	switch (randBackground) {
 		case 0:
 			background.src = "images/background2.png";
 			break;
@@ -70,7 +70,7 @@ function resetAfterMatch() {
 			background.src = "images/background4.png";
 			break;
 		case 3:
-			background.src = "images/backgroundclass.png";
+			background.src = "images/backgroundclass.gif";
 			break;
 		case 4:
 			background.src = "images/backgroundrocky.png";
