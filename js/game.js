@@ -73,8 +73,10 @@ function animate(timestamp) {
 
 	switch (scene) {
 		case SCENE_MAIN_MENU: {
+			canvas.style.setProperty('cursor', 'default');
 			DodgeMenu.play();
 			mainMenuUpdate();
+
 			//animate menuBG
             if (menuBG_Y <= -600){
                 menuBG_X = 0;
@@ -96,10 +98,11 @@ function animate(timestamp) {
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
                 console.log("overlay incremented");
                 break;
-            }
+			}			
 		}
 
 		case SCENE_HOW_TO: {
+			canvas.style.setProperty('cursor', 'default');
 			howToPlayUpdate();
             //animate menuBG
             if (menuBG_Y <= -600){
@@ -127,6 +130,7 @@ function animate(timestamp) {
 		}
 
 		case SCENE_CREDITS: {
+			canvas.style.setProperty('cursor', 'default');
 			creditsUpdate();
             //animate menuBG
             if (menuBG_Y <= -600){
@@ -154,6 +158,7 @@ function animate(timestamp) {
 		}
 
 		case SCENE_PAUSE_MENU: {
+			canvas.style.setProperty('cursor', 'default');
 			pauseUpdate();
 			break;
 		}
@@ -168,6 +173,7 @@ function animate(timestamp) {
 					p1.move();
 					p2.move();
 					moveBall();
+					canvas.style.setProperty('cursor', 'none');
 				}
 
 				if (matchEnd) {
@@ -351,8 +357,7 @@ function drawAll() {
 	}
 
 	drawBall();
-	drawAimer();
-
+	drawAimer();		
 	canvasContext.restore(); // Lines after this won't shake from screen shake.
 	drawRoundTimer();
 	drawBallForfeitTimer();
@@ -362,6 +367,7 @@ function togglePauseState() {
 	gamePaused = !gamePaused;
 	if (gamePaused) {
 		scene = SCENE_PAUSE_MENU;
+		canvas.style.setProperty('cursor', 'default');
 	}
 	else {
 		scene = SCENE_GAME;
