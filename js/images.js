@@ -49,6 +49,9 @@ var menuLogoImageLoaded = false;
 var menuPlayers = document.createElement("img");
 var menuPlayersImageLoaded = false;
 
+var menuBG = document.createElement("img");
+var menuBGImageLoaded = false;
+
 var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
 
@@ -188,6 +191,11 @@ function setUpImages() {
         menuPlayersImageLoaded = true;
     }
     menuPlayers.src = "images/menuPlayers.png";
+
+    menuBG.onload = function () {
+        menuBGImageLoaded = true;
+    }
+    menuBG.src = "images/menuBG.png";
 
 	blackboardPopUp.onload = function () {
 		blackboardPopUpLoaded = true;

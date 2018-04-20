@@ -6,6 +6,13 @@ const PLAYERS_X = 240;
 const PLAYERS_Y = 280;
 const PLAYERS_DRAW_WIDTH = 548;
 const PLAYERS_DRAW_HEIGHT = 320;
+const MENUTEXT_STARTGAME = "START GAME";
+const MENUTEXT_HOWTOPLAY = "HOW TO PLAY";
+const MENUTEXT_CREDITS = "CREDITS";
+var menuBG_X = 0;
+var menuBG_Y = 0;
+var menuBG_X_Speed = .2;
+var menuBG_Y_Speed = .15;
 
 var startCollider = {
     x: 70,
@@ -40,13 +47,18 @@ function mainMenuUpdate() {
     }
 
     mainMenuHandleMouseMove();
+
     mainMenuDraw();
 }
+
 
 function mainMenuDraw() {
     // Background
     canvasContext.fillStyle = 'black';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+
+    // MenuBG
+    canvasContext.drawImage(menuBG, menuBG_X,menuBG_Y);
 
     // Logo
     canvasContext.drawImage(menuLogo, (canvas.width / 2) - (menuLogo.width / 2), 25);
@@ -59,22 +71,22 @@ function mainMenuDraw() {
     //canvasContext.fillText(title, (canvas.width / 2) - (titleMeasure.width * 2) - 20, 100);
 
     // Start game
-    canvasContext.fillStyle = 'white';
+    canvasContext.fillStyle = 'black';
     if (hovering == HOVER_START) canvasContext.fillStyle = 'yellow';
-    canvasContext.font = '30px Helvetica';
-    canvasContext.fillText('START GAME', 100, 300);
+    canvasContext.font = 'bold 30px Helvetica';
+    canvasContext.fillText(MENUTEXT_STARTGAME, 100, 300);
 
     // How to play
-    canvasContext.fillStyle = 'white';
+    canvasContext.fillStyle = 'black';
     if (hovering == HOVER_HOW) canvasContext.fillStyle = 'yellow';
-    canvasContext.font = '30px Helvetica';
-    canvasContext.fillText('HOW TO PLAY', 100, 350);
+    canvasContext.font = 'bold 30px Helvetica';
+    canvasContext.fillText(MENUTEXT_HOWTOPLAY, 100, 350);
 
     // Credits
-    canvasContext.fillStyle = 'white';
+    canvasContext.fillStyle = 'black';
     if (hovering == HOVER_CREDITS) canvasContext.fillStyle = 'yellow';
-    canvasContext.font = '30px Helvetica';
-    canvasContext.fillText('CREDITS', 100, 400);
+    canvasContext.font = 'bold 30px Helvetica';
+    canvasContext.fillText(MENUTEXT_CREDITS, 100, 400);
 
     // Players
     // flip image
