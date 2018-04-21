@@ -22,7 +22,7 @@ function resetAfterRound() {
 	p2.IsTryingToCatch = false;
 	p2.score = 0;
 
-	ballX = 100;
+	ballX = 150;
 	ballY = FLOOR_Y;
 	ballSpeedX = 0;
 	ballSpeedY = 0;

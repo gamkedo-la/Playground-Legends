@@ -38,8 +38,12 @@ function playerClass() {
 			//canvasContext.drawImage(player2, 0-player2.width/2, 0-player2.height);
 			player2RunningSprite.render(0-player2.width/2, 0-player2.height);
 			canvasContext.setTransform(1,0,0,1,0,0);
+			// this will show the range of DIST_TO_GRAB for Ai
+	//	canvasContext.fillRect(this.x- DIST_TO_GRAB,this.y,DIST_TO_GRAB,5);
 		} else {
 		//	canvasContext.drawImage(player1, this.x-player1.width/2, this.y-player1.height);
+		// this will show the range of DIST_TO_GRAB for player
+	//	canvasContext.fillRect(this.x,this.y,DIST_TO_GRAB,5);
 			if (p1.ballHeld == false && p1.throwingFrames > 0) {
 				player1ThrowingSprite.render(this.x-player1.width/2, this.y-player1.height);
 				player1ThrowingSprite.update();
@@ -84,10 +88,19 @@ function playerClass() {
 	}
 
 	this.catchBall= function() {
+		
 		if(!this.ballHeld && this.recentlyThrownFrameLock <= 0) {
-			var distToMouse = dist(this.x, this.y, mouseX, mouseY);
-			if (distToMouse <= DIST_TO_GRAB) {
+			var distToBall = dist(this.x, this.y, ballX, ballY) - BALL_RADIUS;
+			if (distToBall <= DIST_TO_GRAB) {
 				this.ballHeld = true;
+				// the player who threw ball will lose score when other player catch it
+				if(this.isAI) {
+					p1.score--;
+				}
+				else {
+					p2.score--;
+				}
+				
 			}
 		}
 	}

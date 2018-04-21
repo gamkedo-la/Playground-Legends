@@ -10,7 +10,7 @@ var ballSpeedY = 0; // pixels per second
 
 const BALL_SPEED_MAX = 800; // ensure reasonable speeds
 
-var ballX = 100;
+var ballX = 150;
 var ballY = FLOOR_Y;
 var ballTouchedFloor;
 var ballOutOfBoundary; //the boundary is the horizontal screen canvas for now
