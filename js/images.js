@@ -287,25 +287,19 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 }
 
 function randomizeBackground() {
-	var randBackground = Math.floor(Math.random() * 5);
+	var randBackground = Math.floor(Math.random() * 3);
 	switch (randBackground) {
 		case 0:
-			backgroundImage.src = "images/background2.png";
-			break;
-		case 1:
 			backgroundImage.src = "images/background3.png";
 			break;
-		case 2:
-			backgroundImage.src = "images/background4.png";
-			break;
-		case 3:
+		case 1:
 			backgroundImage.src = "images/backgroundclass.gif";
 			break;
-		case 4:
-			backgroundImage.src = "images/backgroundrocky.png";
+		case 2:
+			backgroundImage.src = "images/backgroundrocky.gif";
 			break;
 		default: // Shouldn't occur
-			backgroundImage.src = "images/background.png";
+			backgroundImage.src = "images/background2.png";
 	}
 	
 	backgroundImage.style = 'height: 100vh;position:absolute; z-index:-999;';
