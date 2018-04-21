@@ -73,6 +73,12 @@ var how2_p1ImageLoaded = false;
 var credits_p2 = document.createElement("img");
 var credits_p2ImageLoaded = false;
 
+var audioON_img = document.createElement("img");
+var audioONImageLoaded = false;
+
+var audioOFF_img = document.createElement("img");
+var audioOFFImageLoaded = false;
+
 var blackboardPopUp = document.createElement("img");
 var blackboardPopUpLoaded = false;
 
@@ -253,6 +259,15 @@ function setUpImages() {
     }
     credits_p2.src = "images/credits_p2.png";
 
+    audioON_img.onload = function () {
+        audioONImageLoaded = true;
+    }
+    audioON_img.src = "images/audioON.png";
+
+    audioOFF_img.onload = function () {
+        audioOFFImageLoaded = true;
+    }
+    audioOFF_img.src = "images/audioOFF.png";
 
     blackboardPopUp.onload = function () {
 		blackboardPopUpLoaded = true;

@@ -35,6 +35,8 @@ const RESPONSIVE_CANVAS_RESIZE = false;
 const SHAKE_DECAY = 0.8;
 const SHAKE_PIXELS = 15;
 
+var secondaryOverlayActive = true;
+
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -81,14 +83,16 @@ function animate(timestamp) {
             if (menuBG_Y <= -600){
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                //break;
+                break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
-                //break;
+                break;
             }
-            if (menuBG_overlay_Y >= 0){
+            // To reactivate the secondary overlay, uncomment code below, and then comment out breaks in code above.
+			//  Then uncomment code in mainMenuDraw(), menuBG section.
+            /* if (menuBG_overlay_Y >= 0){
                 menuBG_overlay_X = -800;
                 menuBG_overlay_Y = -600;
                 break;
@@ -98,7 +102,7 @@ function animate(timestamp) {
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
                 
                 break;
-			}			
+			}*/
 		}
 
 		case SCENE_HOW_TO: {
@@ -109,13 +113,16 @@ function animate(timestamp) {
                 console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                //break;
+                break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
-                //break;
+                break;
             }
+            // To reactivate the secondary overlay, uncomment code below, and then comment out breaks in code above.
+			//  Then uncomment code in howToPlayDraw(), menuBG section.
+			/*
             if (menuBG_overlay_Y >= 0){
                 menuBG_overlay_X = -800;
                 menuBG_overlay_Y = -600;
@@ -126,7 +133,7 @@ function animate(timestamp) {
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
 
                 break;
-            }
+            }*/
 		}
 
 		case SCENE_CREDITS: {
@@ -137,13 +144,16 @@ function animate(timestamp) {
                 console.log(menuBG_X + "," + menuBG_Y);
                 menuBG_X = 0;
                 menuBG_Y = 0;
-                //break;
+                break;
             }
             else{
                 menuBG_X -= menuBG_X_Speed;
                 menuBG_Y -= menuBG_Y_Speed;
-                //break;
+                break;
             }
+            // To reactivate the secondary overlay, uncomment code below, and then comment out breaks in code above.
+			//  Then uncomment code in creditsDraw(), menuBG section.
+			/*
             if (menuBG_overlay_Y >= 0){
                 menuBG_overlay_X = -800;
                 menuBG_overlay_Y = -600;
@@ -154,7 +164,7 @@ function animate(timestamp) {
                 menuBG_overlay_Y += menuBG_overlay_Y_Speed;
 
                 break;
-            }
+            }*/
 		}
 
 		case SCENE_PAUSE_MENU: {

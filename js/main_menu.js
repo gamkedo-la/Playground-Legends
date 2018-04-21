@@ -64,7 +64,7 @@ function mainMenuDraw() {
 
     // MenuBG
     canvasContext.drawImage(menuBG, menuBG_X,menuBG_Y);
-    canvasContext.drawImage(menuBG_overlay, menuBG_overlay_X,menuBG_overlay_Y);
+    //canvasContext.drawImage(menuBG_overlay, menuBG_overlay_X,menuBG_overlay_Y);
 
     // Logo
     canvasContext.drawImage(menuLogo, (canvas.width / 2) - (menuLogo.width / 2), 25);

@@ -28,7 +28,7 @@ function howToPlayDraw() {
 
     // menuBG
     canvasContext.drawImage(menuBG_how2, menuBG_X,menuBG_Y);// MenuBG
-    canvasContext.drawImage(menuBG_how2overlay, menuBG_overlay_X,menuBG_overlay_Y);
+    //canvasContext.drawImage(menuBG_how2overlay, menuBG_overlay_X,menuBG_overlay_Y);
 
     // Logo
     canvasContext.globalAlpha = 0.25;
