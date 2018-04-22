@@ -18,7 +18,7 @@ var roundTimer = 40;
 var roundTimerReset = 41;
 const SCORE_TO_WIN_MATCH = 2;
 var matchEnd = false;
-const MAX_HITS = 2;
+const MAX_HITS = 5;
 
 var gamePaused = false;
 var shakeAmt = 0.0;
