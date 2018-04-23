@@ -48,7 +48,28 @@ function howToPlayDraw() {
     var subTitle = 'How To Play';
     var subTitleMeasure = canvasContext.measureText(Math.floor(subTitle));
     canvasContext.fillText(subTitle, 300, 150);
-
+	
+	//Moving instructions
+	canvasContext.fillStyle = 'black';
+    canvasContext.font = 'bold 16px Helvetica';
+    var movingInstructions = 'Press W, A, D or use arrow keys to move your player.';
+    var movingInstructionsMeasure = canvasContext.measureText(Math.floor(movingInstructions));
+    canvasContext.fillText(movingInstructions, 220, 220);
+	
+	//Throwing instructions
+	canvasContext.fillStyle = 'black';
+    canvasContext.font = 'bold 16px Helvetica';
+    var throwingInstructions = 'Aim your throw with the mouse and throw the ball by left-clicking.';
+    var throwingInstructionsMeasure = canvasContext.measureText(Math.floor(throwingInstructions));
+    canvasContext.fillText(throwingInstructions, 220, 280);
+	
+	//Catching instructions
+	canvasContext.fillStyle = 'black';
+    canvasContext.font = 'bold 16px Helvetica';
+    var catchingInstructions = 'Attempt to catch the ball by left-clicking before impact.';
+    var catchingInstructionsMeasure = canvasContext.measureText(Math.floor(catchingInstructions));
+    canvasContext.fillText(catchingInstructions, 220, 340);
+	
     // Back
     canvasContext.fillStyle = 'black';
     if (hovering == HOVER_BACK) canvasContext.fillStyle = 'red';
