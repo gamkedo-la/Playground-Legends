@@ -59,7 +59,7 @@ function creditsDraw() {
 
     var creditsRows = ["Project Lead, initial functionality, hit counter, drop timeout, sounds (jump, menu, countdown), winner declaration,",
     "player 1 run animation: Jose Contreras",
-"Jump control, player animations (jump, catching, throwing), sounds (ball hits, catching): Herleen Dualan",
+"Jump control, player animations (jump, catching, throwing), sounds (ball hits, catching): Kise",
 "Title art and game logo, pause functionality, screenshake, menu decorative programming (overlay, scrolling",
     "background, faded characters): Dana Alcala",
 "Round end and transition, AI walks to ball, sprite flip: Terrence McDonnell",
